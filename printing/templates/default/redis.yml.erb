@@ -1,0 +1,2 @@
+# config/redis.yml
+<%= @redis.to_yaml.gsub "!map:Chef::Node::ImmutableMash", "" %>
