@@ -1,2 +1,2 @@
 # config/paypal.yml
-<%= @paypal.to_yaml.gsub "!map:Chef::Node::ImmutableMash", "" %>
+<%= @paypal.to_yaml.gsub("!map:Chef::Node::ImmutableMash", "").gsub(" !ruby/hash:Chef::Node::ImmutableMash", "") %>

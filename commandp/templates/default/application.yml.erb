@@ -1,2 +1,2 @@
 # config/application.yml
-<%= @settings.to_yaml.gsub " !map:Chef::Node::ImmutableMash ", "" %>
+<%= @settings.to_yaml.gsub(" !map:Chef::Node::ImmutableMash ", "").gsub(" !ruby/hash:Chef::Node::ImmutableMash", "") %>

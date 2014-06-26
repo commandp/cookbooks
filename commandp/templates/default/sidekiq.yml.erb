@@ -1,2 +1,2 @@
 #config/sidekiq.yml
-<%= @sidekiq.to_yaml.gsub("!seq:Chef::Node::ImmutableArray", "").gsub("!map:Chef::Node::ImmutableMash", "") %>
+<%= @sidekiq.to_yaml.gsub("!seq:Chef::Node::ImmutableArray", "").gsub("!map:Chef::Node::ImmutableMash", "").gsub("!ruby/array:Chef::Node::ImmutableArray", "") %>
