@@ -1,0 +1,26 @@
+DEPENDENCIES
+  build-essential
+  imagemagick
+  le_chef
+    git: git://github.com/commandp/le_chef.git
+    revision: a80ce9c82e5d6c5d52212df024f5695215fff96b
+  newrelic
+
+GRAPH
+  apt (2.4.0)
+  build-essential (2.0.4)
+  imagemagick (0.2.3)
+  le_chef (0.0.2)
+    apt (>= 0.0.0)
+  newrelic (1.0.6)
+    curl (>= 0.0.0)
+    ms_dotnet4 (>= 0.0.0)
+    nodejs (>= 0.0.0)
+    php (>= 0.0.0)
+    python (>= 0.0.0)
+  python (1.4.6)
+    build-essential (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  yum (3.2.2)
+  yum-epel (0.3.6)
+    yum (~> 3.0)
