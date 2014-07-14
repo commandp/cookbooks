@@ -1,22 +1,23 @@
 #
 # Cookbook Name:: commandp
-# Recipe:: sidekiq
+# Recipe:: redis
 #
-# Copyright 2012, Jimmy Kuo
+# Copyright 2014, Jimmy Kuo
 #
 # All rights reserved - Do Not Redistribute
 #
 
 node[:deploy].each do |application, deploy|
-  if node[:sidekiq]
-    template "#{deploy[:deploy_to]}/shared/config/sidekiq.yml" do
-      source "sidekiq.yml.erb"
+  if node[:skylight]
+    template "#{deploy[:deploy_to]}/shared/config/skylight.yml" do
+      source "skylight.yml.erb"
       mode 0755
       group deploy[:group]
       owner deploy[:user]
       variables(
-        "sidekiq" => node[:sidekiq]
+        "skylight" => node[:skylight]
       )
     end
   end
 end
+

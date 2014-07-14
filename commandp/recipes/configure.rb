@@ -18,83 +18,18 @@ node[:deploy].each do |application, deploy|
     recursive true
   end
 
-  if node[:settings]
-    template "#{deploy[:deploy_to]}/shared/config/application.yml" do
-      source "application.yml.erb"
-      mode 0755
-      group deploy[:group]
-      owner deploy[:user]
-
-      settings = Hash[node["settings"]]
-      variables(
-        "settings" => settings
-      )
-    end
-  end
-
-  if node[:redis]
-    template "#{deploy[:deploy_to]}/shared/config/redis.yml" do
-      source "redis.yml.erb"
-      mode 0755
-      group deploy[:group]
-      owner deploy[:user]
-
-      redis = Hash[node["redis"]]
-      variables(
-        "redis" => redis
-      )
-    end
-  end
-
-  if node[:paypal]
-    template "#{deploy[:deploy_to]}/shared/config/paypal.yml" do
-      source "paypal.yml.erb"
-      mode 0755
-      group deploy[:group]
-      owner deploy[:user]
-
-      redis = Hash[node["paypal"]]
-      variables(
-        "paypal" => node[:paypal]
-      )
-    end
-  end
-
-  if node[:sidekiq]
-    template "#{deploy[:deploy_to]}/shared/config/sidekiq.yml" do
-      source "sidekiq.yml.erb"
-      mode 0755
-      group deploy[:group]
-      owner deploy[:user]
-
-      variables(
-        "rails_env" => node[:deploy][:rails_env],
-        "sidekiq" => node[:sidekiq]
-      )
-    end
-  end
-
-  if node[:librato]
-    template "#{deploy[:deploy_to]}/shared/config/librato.yml" do
-      source "librato.yml.erb"
-      mode 0755
-      group deploy[:group]
-      owner deploy[:user]
-      variables(
-        "librato" => node[:librato]
-      )
-    end
-  end
-
-  if deploy[:remote_configs]
-    deploy[:remote_configs].each do |url|
-      basename = File.basename(url)
-      remote_file "#{deploy[:deploy_to]}/shared/config/#{basename}" do
-        source url
-        owner deploy[:user]
+  [:settings, :skylight, :redis, :paypal, :sidekiq].each do |service|
+    if node[service]
+      template "#{deploy[:deploy_to]}/shared/config/#{service.to_s}.yml" do
+        source "service.yml.erb"
+        mode 0755
         group deploy[:group]
-        mode 00644
+        owner deploy[:user]
+        variables(
+          "service" => node[service]
+        )
       end
     end
   end
+
 end

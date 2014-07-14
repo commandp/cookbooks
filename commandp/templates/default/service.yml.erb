@@ -1,0 +1,2 @@
+#config/service.yml
+<%= @service.to_yaml.gsub("!ruby/hash:Chef::Node::ImmutableMash", "").gsub("!seq:Chef::Node::ImmutableArray", "").gsub("!map:Chef::Node::ImmutableMash", "").gsub("!ruby/array:Chef::Node::ImmutableArray", "") %>
