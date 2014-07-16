@@ -18,8 +18,7 @@ node[:deploy].each do |application, deploy|
     recursive true
   end
 
-  [:settings, :skylight, :redis, :paypal, :sidekiq].each do |service|
-    Chef::Log.info("#{service} exisit? #{node[service]}")
+  [:application, :skylight, :redis, :paypal, :sidekiq].each do |service|
     if node[service]
       template "#{deploy[:deploy_to]}/shared/config/#{service.to_s}.yml" do
         source "service.yml.erb"
