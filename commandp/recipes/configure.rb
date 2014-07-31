@@ -18,7 +18,7 @@ node[:deploy].each do |application, deploy|
     recursive true
   end
 
-  [:application, :skylight, :redis, :paypal, :sidekiq].each do |service|
+  [:application, :skylight, :redis, :paypal].each do |service|
     if node[service]
       template "#{deploy[:deploy_to]}/shared/config/#{service.to_s}.yml" do
         source "service.yml.erb"
@@ -29,6 +29,15 @@ node[:deploy].each do |application, deploy|
           "service" => node[service]
         )
       end
+    end
+  end
+
+  if node[:sidekiq]
+    template "#{deploy[:deploy_to]}/shared/config/sidekiq.yml" do
+      source "sidekiq.yml.erb"
+      mode 0755
+      group deploy[:group]
+      owner deploy[:user]
     end
   end
 

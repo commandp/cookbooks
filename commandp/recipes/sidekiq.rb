@@ -14,9 +14,6 @@ node[:deploy].each do |application, deploy|
       mode 0755
       group deploy[:group]
       owner deploy[:user]
-      variables(
-        "sidekiq" => node[:sidekiq]
-      )
     end
   end
 end
