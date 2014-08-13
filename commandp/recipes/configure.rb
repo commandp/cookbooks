@@ -18,6 +18,14 @@ node[:deploy].each do |application, deploy|
     recursive true
   end
 
+  directory "#{deploy[:deploy_to]}/shared/print_works" do
+    group deploy[:group]
+    owner deploy[:user]
+    mode 0775
+    action :create
+    recursive true
+  end
+
   [:application, :skylight, :redis, :paypal].each do |service|
     if node[service]
       template "#{deploy[:deploy_to]}/shared/config/#{service.to_s}.yml" do
