@@ -6,6 +6,7 @@ server {
   location / {
     root   <%= @application[:absolute_document_root] %>;
     index  index.html index.htm index.php;
+    proxy_read_timeout 360;
   }
 
   # Block all svn access
@@ -50,6 +51,7 @@ server {
   location / {
     root   <%= @application[:absolute_document_root] %>;
     index  index.html index.htm index.php;
+    proxy_read_timeout 360;
   }
 
   # Block all svn access
