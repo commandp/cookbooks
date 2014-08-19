@@ -18,6 +18,14 @@ node[:deploy].each do |application, deploy|
     recursive true
   end
 
+  directory "#{deploy[:deploy_to]}/shared/uploads" do
+    group deploy[:group]
+    owner deploy[:user]
+    mode 0775
+    action :create
+    recursive true
+  end
+
   directory "#{deploy[:deploy_to]}/shared/print_works" do
     group deploy[:group]
     owner deploy[:user]
