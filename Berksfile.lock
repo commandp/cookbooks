@@ -4,6 +4,7 @@ DEPENDENCIES
   le_chef
     git: git://github.com/commandp/le_chef.git
     revision: a80ce9c82e5d6c5d52212df024f5695215fff96b
+  locale
   newrelic
   nodejs
 
@@ -18,6 +19,7 @@ GRAPH
   imagemagick (0.2.3)
   le_chef (0.0.2)
     apt (>= 0.0.0)
+  locale (1.0.2)
   ms_dotnet4 (1.0.2)
     windows (>= 0.0.0)
   mysql (5.3.6)
