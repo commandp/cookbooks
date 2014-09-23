@@ -3,7 +3,7 @@ DEPENDENCIES
   imagemagick
   le_chef
     git: git://github.com/commandp/le_chef.git
-    revision: a80ce9c82e5d6c5d52212df024f5695215fff96b
+    revision: 6781d666391d21addae8c158056fbedf13321209
   locale
   newrelic
   nodejs
