@@ -7,6 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
-opsworks_deploy_user do
-  deploy_data deploy
+node[:deploy].each do |application, deploy|
+  deploy = node[:deploy][application]
+
+  opsworks_deploy_user do
+    deploy_data deploy
+  end
+
 end
