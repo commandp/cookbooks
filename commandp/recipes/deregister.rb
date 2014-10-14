@@ -10,8 +10,10 @@
 include_recipe "aws"
 
 aws_elastic_lb "register with elb" do
-    aws_access_key node[:aws][:access_key_id]
-    aws_secret_access_key node[:aws][:secret_access_key]
+  aws_access_key node[:aws][:access_key_id]
+  aws_secret_access_key node[:aws][:secret_access_key]
+  node[:aws][:elb].each do |elb|
     name node[:elb][:name]
     action :deregister
+  end
 end
