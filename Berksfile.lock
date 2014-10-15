@@ -8,6 +8,9 @@ DEPENDENCIES
   locale
   newrelic
   nodejs
+  opsworks_sidekiq
+    git: git://github.com/drakerlabs/opsworks_sidekiq.git
+    revision: 7879bc614f36c25ba93712e60d8a3711885bdd3a
 
 GRAPH
   apt (2.4.0)
@@ -36,6 +39,7 @@ GRAPH
     apt (>= 0.0.0)
     build-essential (>= 0.0.0)
     yum (>= 0.0.0)
+  opsworks_sidekiq (0.0.0)
   php (1.4.6)
     build-essential (>= 0.0.0)
     iis (>= 0.0.0)

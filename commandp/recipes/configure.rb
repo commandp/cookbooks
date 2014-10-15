@@ -48,13 +48,4 @@ node[:deploy].each do |application, deploy|
     end
   end
 
-  if node[:sidekiq]
-    template "#{deploy[:deploy_to]}/shared/config/sidekiq.yml" do
-      source "sidekiq.yml.erb"
-      mode 0755
-      group deploy[:group]
-      owner deploy[:user]
-    end
-  end
-
 end
