@@ -21,6 +21,8 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_redirect off;
+    proxy_read_timeout <%= node[:unicorn][:timeout] %>
+    proxy_send_timeout <%= node[:unicorn][:timeout] %>
 
     # If you don't find the filename in the static files
     # Then request it from the unicorn server
@@ -80,6 +82,8 @@ server {
     proxy_set_header X-Forwarded-Proto https;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
+    proxy_read_timeout <%= node[:unicorn][:timeout] %>
+    proxy_send_timeout <%= node[:unicorn][:timeout] %>
     proxy_redirect off;
 
     # Block Bad API user
