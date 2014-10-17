@@ -11,6 +11,9 @@ DEPENDENCIES
   opsworks_sidekiq
     git: git://github.com/drakerlabs/opsworks_sidekiq.git
     revision: 7879bc614f36c25ba93712e60d8a3711885bdd3a
+  papertrail
+    git: git://github.com/librato/papertrail-cookbook.git
+    revision: b039be4b6011df2efeca44741d9e201b8d6e7cfe
 
 GRAPH
   apt (2.4.0)
@@ -40,6 +43,8 @@ GRAPH
     build-essential (>= 0.0.0)
     yum (>= 0.0.0)
   opsworks_sidekiq (0.0.0)
+  papertrail (0.0.7)
+    rsyslog (>= 0.0.0)
   php (1.4.6)
     build-essential (>= 0.0.0)
     iis (>= 0.0.0)
@@ -50,6 +55,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
+  rsyslog (1.12.2)
   windows (1.31.0)
     chef_handler (>= 0.0.0)
   xml (1.2.6)
