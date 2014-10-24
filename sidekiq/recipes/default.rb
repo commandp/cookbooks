@@ -4,7 +4,8 @@
 #
 
 node[:deploy].each do |application, deploy|
-  application[:sidekiq].each do |worker, options|
+  workers = application[:sidekiq]
+  workes.each do |worker, options|
     # Convert attribute classes to plain old ruby objects
     config = options[:config] ? options[:config].to_hash : {}
     config.each do |k, v|
@@ -42,17 +43,13 @@ node[:deploy].each do |application, deploy|
       application: application,
       workers: workers
     })
-  end
-
-  execute "ensure-sidekiq-is-setup-with-monit" do
-    command %Q{
-      monit reload
-    }
+    notifies :reload, resources(:service => "monit"), :immediately
   end
 
   execute "restart-sidekiq" do
     command %Q{
-      echo "sleep 20 && monit -g sidekiq_#{application} restart all" | at now
+      echo "sleep 20 && monit -g sidekiq_#{application}_group restart all" | at now
     }
   end
+
 end

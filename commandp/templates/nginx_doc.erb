@@ -1,0 +1,77 @@
+server {
+  listen   80;
+  server_name  doc.commandp.me;
+  access_log  <%= node[:nginx][:log_dir] %>/doc.access.log;
+
+  location / {
+    root   <%= @application[:absolute_document_root] %>/current/doc;
+    index  index.html index.htm index.php;
+    proxy_read_timeout 360;
+  }
+
+  # Block all svn access
+  if ($request_uri ~* ^.*\.svn.*$) {
+     return 404;
+  }
+
+  # Block all git access
+  if ($request_uri ~* ^.*\.git.*$) {
+     return 404;
+  }
+
+  location /nginx_status {
+    stub_status on;
+    access_log off;
+    allow 127.0.0.1;
+    deny all;
+  }
+
+  location ~* \.(ttf|ttc|otf|eot|woff|svg|font.css)$ {
+    add_header Access-Control-Allow-Origin *;
+    expires 1M;
+    access_log off;
+    add_header Cache-Control "public";
+  }
+
+}
+
+<% if @application[:ssl_support] %>
+server {
+  listen   443;
+  server_name  <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
+  access_log  <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>-ssl.access.log;
+
+  ssl on;
+  ssl_certificate /etc/nginx/ssl/<%= @application[:domains].first %>.crt;
+  ssl_certificate_key /etc/nginx/ssl/<%= @application[:domains].first %>.key;
+  <% if @application[:ssl_certificate_ca] -%>
+  ssl_client_certificate /etc/nginx/ssl/<%= @application[:domains].first %>.ca;
+  <% end -%>
+
+  ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+
+  location / {
+    root   <%= @application[:absolute_document_root] %>;
+    index  index.html index.htm index.php;
+    proxy_read_timeout 360;
+  }
+
+  # Block all svn access
+  if ($request_uri ~* ^.*\.svn.*$) {
+     return 404;
+  }
+
+  # Block all git access
+  if ($request_uri ~* ^.*\.git.*$) {
+     return 404;
+  }
+
+  location ~* \.(ttf|ttc|otf|eot|woff|svg|font.css)$ {
+    add_header Access-Control-Allow-Origin *;
+    expires 1M;
+    access_log off;
+    add_header Cache-Control "public";
+  }
+
+}
+<% end %>
