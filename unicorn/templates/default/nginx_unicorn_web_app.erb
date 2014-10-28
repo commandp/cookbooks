@@ -6,7 +6,18 @@ server {
   listen 80;
   listen 443;
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
-  rewrite ^ https://<%= node['nginx']['absolute_url'] %>$request_uri? permanent;
+
+  location = /elb_check {
+    return 200 'Welcome';
+  }
+
+  location = /elb {
+    return 200 'Welcome';
+  }
+
+  location / {
+    rewrite ^ $scheme:<%= node['nginx']['absolute_url'] %>$request_uri permanent;
+  }
 }
 
 server {
@@ -24,9 +35,12 @@ server {
     client_max_body_size <%= @application[:nginx][:client_max_body_size] %>;
   <% end %>
 
-  location /elb_check {
-    access_log off;
-    return 200;
+  location = /elb_check {
+    return 200 'Welcome';
+  }
+
+  location = /elb {
+    return 200 'Welcome';
   }
 
   location / {
@@ -90,9 +104,12 @@ server {
     client_max_body_size <%= @application[:nginx][:client_max_body_size] %>;
   <% end %>
 
-  location /elb_check {
-    access_log off;
-    return 200;
+  location = /elb_check {
+    return 200 'Welcome';
+  }
+
+  location = /elb {
+    return 200 'Welcome';
   }
 
   location / {
