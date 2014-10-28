@@ -9,6 +9,10 @@ server {
     proxy_read_timeout 360;
   }
 
+  if ($host != 'staiging.commandp.com') {
+    rewrite ^/(.*)$ https://staging.commandp.com/$1 permanent;
+  }
+
   # Block all svn access
   if ($request_uri ~* ^.*\.svn.*$) {
      return 404;
