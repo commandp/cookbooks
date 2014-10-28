@@ -6,13 +6,13 @@ server {
   listen 80;
   listen 443;
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
-  rewrite ^ https://<%= @application[:nginx][:absolute_url] %>$request_uri? permanent;
+  rewrite ^ https://<%= node['nginx']['absolute_url'] %>$request_uri? permanent;
 }
 
 server {
   listen 80;
-  server_name <%= @application[:nginx][:absolute_url] %>;
-  access_log <%= node[:nginx][:log_dir] %>/<%= @applicaiton[:nginx][:absolute_url] %>.access.log;
+  server_name <%= node['nginx']['absolute_url'] %>;
+  access_log <%= node[:nginx][:log_dir] %>/<%= node['nginx']['absolute_url'] %>.access.log;
 
   server_tokens off;
 
@@ -70,8 +70,8 @@ server {
 <% if @application[:ssl_support] %>
 server {
   listen   443;
-  server_name <%= @application[:nginx][:absolute_url] %>;
-  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:nginx][:absolute_url] %>-ssl.access.log;
+  server_name <%= node['nginx']['absolute_url'] %>;
+  access_log <%= node[:nginx][:log_dir] %>/<%= node['nginx']['absolute_url'] %>-ssl.access.log;
 
   server_tokens off;
 
