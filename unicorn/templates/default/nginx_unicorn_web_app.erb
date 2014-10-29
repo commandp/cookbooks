@@ -4,28 +4,15 @@ upstream unicorn_<%= @application[:domains].first %> {
 
 server {
   listen 80;
-  listen 443;
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
 
-  location = /elb_check {
-    return 200 'Welcome';
-  }
-
-  location = /elb {
-    return 200 'Welcome';
-  }
-
-  location / {
-    rewrite ^ $scheme:<%= node['nginx']['absolute_url'] %>$request_uri permanent;
-  }
-}
-
-server {
-  listen 80;
-  server_name <%= node['nginx']['absolute_url'] %>;
-  access_log <%= node[:nginx][:log_dir] %>/<%= node['nginx']['absolute_url'] %>.access.log;
-
-  server_tokens off;
+  <% if @application[:log_format] %>
+    <% @application[:log_format].each do |log_format_name| %>
+  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>.access.<%= log_format_name %>.log <%= log_format_name %>;
+    <% end %>
+  <% else %>
+  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>.access.log;
+  <%end %>
 
   keepalive_timeout <%= node[:nginx][:keepalive_timeout] %>;
 
@@ -35,20 +22,26 @@ server {
     client_max_body_size <%= @application[:nginx][:client_max_body_size] %>;
   <% end %>
 
-  location = /elb_check {
-    return 200 'Welcome';
-  }
-
-  location = /elb {
-    return 200 'Welcome';
+  location /elb_check {
+    access_log off;
+    return 200 'Welcome ELB'
   }
 
   location / {
+    try_files $uri/index.html $uri/index.htm @unicorn;
+  }
+
+  location @unicorn {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_redirect off;
-    proxy_read_timeout <%= node[:unicorn][:timeout] %>;
-    proxy_send_timeout <%= node[:unicorn][:timeout] %>;
+
+  <% if node[:nginx] && node[:nginx][:proxy_read_timeout] -%>
+    proxy_read_timeout <%= node[:nginx][:proxy_read_timeout] %>;
+  <% end -%>
+  <% if node[:nginx] && node[:nginx][:proxy_send_timeout] -%>
+    proxy_send_timeout <%= node[:nginx][:proxy_send_timeout] %>;
+  <% end -%>
 
     # If you don't find the filename in the static files
     # Then request it from the unicorn server
@@ -56,16 +49,6 @@ server {
       proxy_pass http://unicorn_<%= @application[:domains].first %>;
       break;
     }
-  }
-
-  location ~* ^/assets/ {
-    expires 1y;
-    add_header Cache-Control public;
-
-    if ($request_filename ~* ^.*?\.(eot)|(ttf)|(woff)|(svg)|(otf)$){
-      add_header Access-Control-Allow-Origin *;
-    }
-    break;
   }
 
   location /nginx_status {
@@ -84,10 +67,8 @@ server {
 <% if @application[:ssl_support] %>
 server {
   listen   443;
-  server_name <%= node['nginx']['absolute_url'] %>;
-  access_log <%= node[:nginx][:log_dir] %>/<%= node['nginx']['absolute_url'] %>-ssl.access.log;
-
-  server_tokens off;
+  server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
+  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>-ssl.access.log;
 
   ssl on;
   ssl_certificate /etc/nginx/ssl/<%= @application[:domains].first %>.crt;
@@ -104,34 +85,27 @@ server {
     client_max_body_size <%= @application[:nginx][:client_max_body_size] %>;
   <% end %>
 
-  location = /elb_check {
-    return 200 'Welcome';
-  }
-
-  location = /elb {
-    return 200 'Welcome';
+  location /elb_check {
+    access_log off;
+    return 200 'Welcome ELB'
   }
 
   location / {
+    try_files $uri/index.html $uri/index.htm @unicorn;
+  }
+
+  location @unicorn {
     proxy_set_header X-Forwarded-Proto https;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
-    proxy_read_timeout <%= node[:unicorn][:timeout] %>;
-    proxy_send_timeout <%= node[:unicorn][:timeout] %>;
     proxy_redirect off;
 
-    # Block Bad API user
-    if ($uri ~* ^/api/v1/) {
-      set $block_rules API;
-    }
-
-    if ($http_user_agent !~* ^commandp.me(.*)) {
-      set $block_rules "${block_rules}BADAGENT";
-    }
-
-    if ($block_rules = APIBADAGENT) {
-      return 403;
-    }
+  <% if node[:nginx] && node[:nginx][:proxy_read_timeout] -%>
+    proxy_read_timeout <%= node[:nginx][:proxy_read_timeout] %>;
+  <% end -%>
+  <% if node[:nginx] && node[:nginx][:proxy_send_timeout] -%>
+    proxy_send_timeout <%= node[:nginx][:proxy_send_timeout] %>;
+  <% end -%>
 
     # If you don't find the filename in the static files
     # Then request it from the unicorn server
