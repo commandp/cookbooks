@@ -39,18 +39,6 @@ node[:deploy].each do |application, deploy|
     mode 0755
     group deploy[:group]
     owner deploy[:user]
-    config = node[:sidekiq]
-    config.each do |k, v|
-      case v
-      when Chef::Node::ImmutableArray
-        config[k] = v.to_a
-      when Chef::Node::ImmutableMash
-        config[k] = v.to_hash
-      end
-    end
-    variables(
-      "config" => config
-    )
   end
 
   [:application, :skylight, :redis, :paypal].each do |service|
