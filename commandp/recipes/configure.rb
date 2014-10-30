@@ -48,17 +48,8 @@ node[:deploy].each do |application, deploy|
         mode 0755
         group deploy[:group]
         owner deploy[:user]
-        service = node[service]
-        service.each do |k, v|
-          case v
-          when Chef::Node::ImmutableArray
-            service[k] = v.to_a
-          when Chef::Node::ImmutableMash
-            service[k] = v.to_hash
-          end
-        end
         variables(
-          "service" => service
+          "service" => node[service]
         )
       end
     end
