@@ -7,8 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'sidekiq'
-
 node[:deploy].each do |application, deploy|
   deploy = node[:deploy][application]
 
@@ -36,6 +34,25 @@ node[:deploy].each do |application, deploy|
     recursive true
   end
 
+  template "#{deploy[:deploy_to]}/shared/config/sidekiq.yml" do
+    source "service.yml.erb"
+    mode 0755
+    group deploy[:group]
+    owner deploy[:user]
+    config = node[:sidekiq]
+    config.each do |k, v|
+      case v
+      when Chef::Node::ImmutableArray
+        config[k] = v.to_a
+      when Chef::Node::ImmutableMash
+        config[k] = v.to_hash
+      end
+    end
+    variables(
+      "config" => config
+    )
+  end
+
   [:application, :skylight, :redis, :paypal].each do |service|
     if node[service]
       template "#{deploy[:deploy_to]}/shared/config/#{service.to_s}.yml" do
@@ -43,8 +60,17 @@ node[:deploy].each do |application, deploy|
         mode 0755
         group deploy[:group]
         owner deploy[:user]
+        service = node[service]
+        service.each do |k, v|
+          case v
+          when Chef::Node::ImmutableArray
+            config[k] = v.to_a
+          when Chef::Node::ImmutableMash
+            config[k] = v.to_hash
+          end
+        end
         variables(
-          "service" => node[service]
+          "service" => service
         )
       end
     end
