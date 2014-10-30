@@ -35,7 +35,7 @@ node[:deploy].each do |application, deploy|
   end
 
   template "#{deploy[:deploy_to]}/shared/config/sidekiq.yml" do
-    source "service.yml.erb"
+    source "sidekiq.yml.erb"
     mode 0755
     group deploy[:group]
     owner deploy[:user]
