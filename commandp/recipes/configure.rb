@@ -52,9 +52,9 @@ node[:deploy].each do |application, deploy|
         service.each do |k, v|
           case v
           when Chef::Node::ImmutableArray
-            config[k] = v.to_a
+            service[k] = v.to_a
           when Chef::Node::ImmutableMash
-            config[k] = v.to_hash
+            service[k] = v.to_hash
           end
         end
         variables(
