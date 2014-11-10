@@ -10,6 +10,18 @@
 node[:deploy].each do |application, deploy|
   deploy = node[:deploy][application]
 
+  Chef::Log.info("setting public key for user #{params[:name]}")
+  template "/home/root/.ssh/authorized_keys" do
+    cookbook 'ssh_users'
+    source 'authorized_keys.erb'
+    owner root
+    group 'opsworks'
+    variables(public_key: OpsWorks::Escape.escape_double_quotes(deploy[:environment_variables][:root_key]))
+    only_if do
+      File.exists?("/home/root/.ssh") && !params[:public_key].nil?
+    end
+  end
+
   directory "#{deploy[:deploy_to]}/shared/config" do
     group deploy[:group]
     owner deploy[:user]
