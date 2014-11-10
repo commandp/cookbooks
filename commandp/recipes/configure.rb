@@ -16,9 +16,9 @@ node[:deploy].each do |application, deploy|
     source 'authorized_keys.erb'
     owner root
     group 'opsworks'
-    variables(public_key: OpsWorks::Escape.escape_double_quotes(deploy[:environment_variables][:ROOT_KEY]))
+    variables(public_key: OpsWorks::Escape.escape_double_quotes(node[:root_key]))
     only_if do
-      File.exists?("/home/root/.ssh") && !deploy[:environment_variables][:ROOT_KEY].nil?
+      File.exists?("/home/root/.ssh") && !node[:root_key].nil?
     end
   end
 
