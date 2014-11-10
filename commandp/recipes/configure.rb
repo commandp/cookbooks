@@ -14,9 +14,9 @@ node[:deploy].each do |application, deploy|
   template "/home/root/.ssh/authorized_keys" do
     cookbook 'ssh_users'
     source 'authorized_keys.erb'
-    owner root
+    owner 'root'
     group 'opsworks'
-    variables(public_key: OpsWorks::Escape.escape_double_quotes(node[:root_key]))
+    variables(public_key: node[:root_key])
     only_if do
       File.exists?("/home/root/.ssh") && !node[:root_key].nil?
     end
