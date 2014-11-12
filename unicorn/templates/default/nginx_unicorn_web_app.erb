@@ -64,6 +64,11 @@ server {
   }
 }
 
+server {
+  server_name "~^www\.(.*)$" ;
+  return 301 $scheme://$1$request_uri;
+}
+
 <% if @application[:ssl_support] %>
 server {
   listen   443;
