@@ -3,7 +3,8 @@ upstream unicorn_<%= @application[:domains].first %> {
 }
 
 server {
-  listen 80 443;
+  listen 80;
+  listen 443;
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
   rewrite ^ https://<%= node[:nginx][:absolute_url] %>$request_uri? permanent;
 }
