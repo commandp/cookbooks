@@ -3,8 +3,14 @@ upstream unicorn_<%= @application[:domains].first %> {
 }
 
 server {
-  listen 80;
+  listen 80 443;
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
+  rewrite ^ https://<%= node[:nginx][:absolute_url] %>$request_uri? permanent;
+}
+
+server {
+  listen 80;
+  server_name <%= node[:nginx][:absolute_url] %>;
 
   <% if @application[:log_format] %>
     <% @application[:log_format].each do |log_format_name| %>
@@ -22,7 +28,7 @@ server {
     client_max_body_size <%= @application[:nginx][:client_max_body_size] %>;
   <% end %>
 
-  location /elb_check {
+  location = /elb_check {
     access_log off;
     return 200 'Welcome ELB';
   }
@@ -72,7 +78,7 @@ server {
 <% if @application[:ssl_support] %>
 server {
   listen   443;
-  server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
+  server_name <%= node[:nginx][:absolute_url] %>;
   access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>-ssl.access.log;
 
   ssl on;
