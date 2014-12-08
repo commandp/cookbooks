@@ -15,10 +15,10 @@ server {
 
   <% if @application[:log_format] %>
     <% @application[:log_format].each do |log_format_name| %>
-  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>.access.<%= log_format_name %>.log <%= log_format_name %>;
+  access_log <%= node[:nginx][:log_dir] %>/<%= node[:nginx][:absolute_url] %>.access.<%= log_format_name %>.log <%= log_format_name %>;
     <% end %>
   <% else %>
-  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>.access.log;
+  access_log <%= node[:nginx][:log_dir] %>/<%= node[:nginx][:absolute_url] %>.access.log;
   <%end %>
 
   keepalive_timeout <%= node[:nginx][:keepalive_timeout] %>;
@@ -80,7 +80,7 @@ server {
 server {
   listen   443;
   server_name <%= node[:nginx][:absolute_url] %>;
-  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>-ssl.access.log;
+  access_log <%= node[:nginx][:log_dir] %>/<%= node[:nginx][:absolute_url] %>-ssl.access.log;
 
   ssl on;
   ssl_certificate /etc/nginx/ssl/<%= @application[:domains].first %>.crt;
@@ -97,7 +97,7 @@ server {
     client_max_body_size <%= @application[:nginx][:client_max_body_size] %>;
   <% end %>
 
-  location /elb_check {
+  location = /elb_check {
     access_log off;
     return 200 'Welcome ELB';
   }
