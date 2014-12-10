@@ -13,7 +13,9 @@ server {
   }
 
   location / {
-    rewrite ^ https://<%= node[:nginx][:absolute_url] %>$request_uri? permanent;
+    proxy_pass https://<%= node[:nginx][:absolute_url] %>;
+    proxy_redirect https://<%= node[:nginx][:absolute_url] %>/ /;
+    proxy_read_timeout 60s;
   }
 }
 
