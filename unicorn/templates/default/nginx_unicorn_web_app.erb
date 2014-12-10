@@ -4,31 +4,14 @@ upstream unicorn_<%= @application[:domains].first %> {
 
 server {
   listen 80;
-  listen 443;
-  server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
-
-  location = /elb_check {
-    access_log off;
-    return 200 'Welcome ELB';
-  }
-
-  location / {
-    proxy_pass https://<%= node[:nginx][:absolute_url] %>;
-    proxy_redirect https://<%= node[:nginx][:absolute_url] %>/ /;
-    proxy_read_timeout 60s;
-  }
-}
-
-server {
-  listen 80;
-  server_name <%= node[:nginx][:absolute_url] %>;
+  server_name <%= node[:nginx][:absolute_url] %> <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
 
   <% if @application[:log_format] %>
     <% @application[:log_format].each do |log_format_name| %>
-  access_log <%= node[:nginx][:log_dir] %>/<%= node[:nginx][:absolute_url] %>.access.<%= log_format_name %>.log <%= log_format_name %>;
+    access_log <%= node[:nginx][:log_dir] %>/<%= node[:nginx][:absolute_url] %>.access.<%= log_format_name %>.log <%= log_format_name %>;
     <% end %>
   <% else %>
-  access_log <%= node[:nginx][:log_dir] %>/<%= node[:nginx][:absolute_url] %>.access.log;
+    access_log <%= node[:nginx][:log_dir] %>/<%= node[:nginx][:absolute_url] %>.access.log;
   <%end %>
 
   keepalive_timeout <%= node[:nginx][:keepalive_timeout] %>;
@@ -41,6 +24,11 @@ server {
 
   location / {
     try_files $uri/index.html $uri/index.htm @unicorn;
+  }
+
+  location = /elb_check {
+    access_log off;
+    return 200 'Welcome ELB';
   }
 
   location @unicorn {
@@ -84,7 +72,7 @@ server {
 <% if @application[:ssl_support] %>
 server {
   listen   443;
-  server_name <%= node[:nginx][:absolute_url] %>;
+  server_name <%= node[:nginx][:absolute_url] %> <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
   access_log <%= node[:nginx][:log_dir] %>/<%= node[:nginx][:absolute_url] %>-ssl.access.log;
 
   ssl on;
@@ -104,6 +92,11 @@ server {
 
   location / {
     try_files $uri/index.html $uri/index.htm @unicorn;
+  }
+
+  location = /elb_check {
+    access_log off;
+    return 200 'Welcome ELB';
   }
 
   location @unicorn {
