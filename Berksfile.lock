@@ -1,6 +1,7 @@
 DEPENDENCIES
   aws
   build-essential
+  datadog
   imagemagick
   le_chef
     git: git://github.com/commandp/le_chef.git
@@ -22,6 +23,10 @@ GRAPH
   chef-sugar (2.0.0)
   chef_handler (1.1.6)
   curl (2.0.0)
+  datadog (2.0.0)
+    apt (>= 0.0.0)
+    chef_handler (~> 1.1.0)
+    yum (>= 0.0.0)
   iis (2.1.2)
     windows (>= 1.2.6)
   imagemagick (0.2.3)
