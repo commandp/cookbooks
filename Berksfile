@@ -1,12 +1,9 @@
 source 'https://api.berkshelf.com'
 
 cookbook 'build-essential'
-cookbook 'imagemagick'
 cookbook 'le_chef', github: 'commandp/le_chef'
 cookbook 'newrelic'
-cookbook 'nodejs'
 cookbook 'locale'
 cookbook 'aws'
 cookbook 'opsworks_sidekiq', github: 'drakerlabs/opsworks_sidekiq'
-cookbook 'papertrail', github: 'librato/papertrail-cookbook'
-cookbook 'datadog'
+cookbook 'aws-tag', github: 'commandp/chef-aws-tag'

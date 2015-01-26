@@ -1,7 +1,9 @@
 DEPENDENCIES
   aws
+  aws-tag
+    git: git://github.com/commandp/chef-aws-tag.git
+    revision: 7984fb7e06ad9c9f14750e99c57b55a051cfba0a
   build-essential
-  datadog
   imagemagick
   le_chef
     git: git://github.com/commandp/le_chef.git
@@ -19,14 +21,12 @@ DEPENDENCIES
 GRAPH
   apt (2.4.0)
   aws (2.4.0)
+  aws-tag (0.0.1)
+    aws (>= 0.2.4)
   build-essential (2.0.4)
   chef-sugar (2.0.0)
   chef_handler (1.1.6)
   curl (2.0.0)
-  datadog (2.0.0)
-    apt (>= 0.0.0)
-    chef_handler (~> 1.1.0)
-    yum (>= 0.0.0)
   iis (2.1.2)
     windows (>= 1.2.6)
   imagemagick (0.2.3)
