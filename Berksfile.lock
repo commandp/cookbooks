@@ -1,31 +1,77 @@
 DEPENDENCIES
+  apt
+    git: git://github.com/opscode-cookbooks/apt.git
+    revision: d611146a9530396c057fdf5944f8d16c01cb35a3
+    tag: v2.3.8
+  ark
+    git: git://github.com/opscode-cookbooks/ark.git
+    revision: 8390e2a2ba394a465d886b8910f25ca750f7f9b8
+    tag: v0.4.2
   aws
   aws-tag
     git: git://github.com/commandp/chef-aws-tag.git
     revision: 7984fb7e06ad9c9f14750e99c57b55a051cfba0a
+  bluepill
+    git: git://github.com/opscode-cookbooks/bluepill.git
+    revision: 085a3fe714837b53fd1bc496df83283f5933d2d2
+    tag: v2.3.1
   build-essential
   elasticsearch
     git: git://github.com/elasticsearch/cookbook-elasticsearch.git
     revision: 52d39ccb97fc5743dc82587a40fb756d1fe9714b
+  java
+    git: git://github.com/opscode-cookbooks/java.git
+    revision: af5e579247b7183805559bed73e2e08164dc25c6
+    tag: v1.21.2
   le_chef
     git: git://github.com/commandp/le_chef.git
     revision: 6781d666391d21addae8c158056fbedf13321209
   locale
+  mongodb
+    git: git://github.com/edelight/chef-mongodb
+    revision: dc5836318a27331f605f264d946931927dd26bb8
+  monit
+    git: git://github.com/apsoto/monit.git
+    revision: ac3793f37d4f7ca7e4174cfa9a64f8b6948fff44
   newrelic
+  ohai
+    git: git://github.com/opscode-cookbooks/ohai.git
+    revision: d47ade2365789b69d93b559e46db20ffa1589c7a
+    tag: v1.1.12
   opsworks_sidekiq
     git: git://github.com/drakerlabs/opsworks_sidekiq.git
     revision: 7879bc614f36c25ba93712e60d8a3711885bdd3a
+  python
+    git: git://github.com/poise/python.git
+    revision: f9861f908a9a1abdc31d0468aaa3fa6936b9e5c2
+    tag: v1.4.6
+  rsyslog
+    git: git://github.com/opscode-cookbooks/rsyslog.git
+    revision: d5f9f83a1c5d7cba8241bfb9d282ebd6ee958b16
+    tag: v1.11.0
+  windows
+    git: git://github.com/opscode-cookbooks/windows.git
+    revision: e19da06b22f8f3ee7d340f84e624e620b439c7a0
+    tag: v1.30.2
+  yum
+    git: git://github.com/opscode-cookbooks/yum.git
+    revision: 8c56e27c4d8186f0215e372309066d8f0c46d951
+    tag: v3.1.0
+  yum-epel
+    git: git://github.com/opscode-cookbooks/yum-epel.git
+    revision: b542aea037a7395ceb6f10b878b7dc48bc330446
+    tag: v0.3.4
 
 GRAPH
   7-zip (1.0.2)
     windows (>= 1.2.2)
-  apt (2.4.0)
-  ark (0.9.0)
-    7-zip (>= 0.0.0)
-    windows (>= 0.0.0)
+  apt (2.3.8)
+  ark (0.4.2)
   aws (2.4.0)
   aws-tag (0.0.1)
     aws (>= 0.2.4)
+  bluepill (2.3.1)
+    rsyslog (>= 0.0.0)
   build-essential (2.0.4)
   chef-sugar (2.0.0)
   chef_handler (1.1.6)
@@ -34,9 +80,15 @@ GRAPH
     ark (>= 0.2.4)
   iis (2.1.2)
     windows (>= 1.2.6)
+  java (1.21.2)
   le_chef (0.0.2)
     apt (>= 0.0.0)
   locale (1.0.2)
+  mongodb (0.16.3)
+    apt (>= 1.8.2)
+    python (>= 0.0.0)
+    yum (>= 3.0.0)
+  monit (0.7.5)
   ms_dotnet4 (1.0.2)
     windows (>= 0.0.0)
   mysql (5.3.6)
@@ -52,6 +104,7 @@ GRAPH
     ark (>= 0.0.0)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
+  ohai (1.1.12)
   opsworks_sidekiq (0.0.0)
   php (1.4.6)
     build-essential (>= 0.0.0)
@@ -63,13 +116,14 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  windows (1.31.0)
+  rsyslog (1.11.0)
+  windows (1.30.2)
     chef_handler (>= 0.0.0)
   xml (1.2.6)
     build-essential (>= 0.0.0)
     chef-sugar (>= 0.0.0)
-  yum (3.2.2)
-  yum-epel (0.3.6)
+  yum (3.1.0)
+  yum-epel (0.3.4)
     yum (~> 3.0)
   yum-mysql-community (0.1.8)
     yum (>= 3.0.0)
