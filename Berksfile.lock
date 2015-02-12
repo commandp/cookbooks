@@ -23,6 +23,10 @@ DEPENDENCIES
     git: git://github.com/opscode-cookbooks/java.git
     revision: af5e579247b7183805559bed73e2e08164dc25c6
     tag: v1.21.2
+  layer-custom
+    git: https://github.com/ajturner/opsworks-elasticsearch-cookbook
+    revision: ad0f538a10fe7c3a81cd16ef9c55282ecd0bb6b0
+    rel: layer-custom
   le_chef
     git: git://github.com/commandp/le_chef.git
     revision: 6781d666391d21addae8c158056fbedf13321209
@@ -81,6 +85,7 @@ GRAPH
   iis (2.1.2)
     windows (>= 1.2.6)
   java (1.21.2)
+  layer-custom (1.0.0)
   le_chef (0.0.2)
     apt (>= 0.0.0)
   locale (1.0.2)

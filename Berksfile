@@ -20,3 +20,4 @@ cookbook 'yum', git: 'git://github.com/opscode-cookbooks/yum.git', tag: 'v3.1.0'
 cookbook 'yum-epel', '>= 0.3.4', git: 'git://github.com/opscode-cookbooks/yum-epel.git', tag: 'v0.3.4'
 cookbook 'elasticsearch', git: 'git://github.com/elasticsearch/cookbook-elasticsearch.git', tag: '0.3.7'
 cookbook 'mongodb', git: 'git://github.com/edelight/chef-mongodb'
+cookbook 'layer-custom', git: 'https://github.com/ajturner/opsworks-elasticsearch-cookbook', rel: "layer-custom"
