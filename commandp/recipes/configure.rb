@@ -65,13 +65,6 @@ node[:deploy].each do |application, deploy|
     owner deploy[:user]
   end
 
-  template "#{deploy[:deploy_to]}/shared/config/database.yml" do
-    source "sidekiq.yml.erb"
-    mode 0755
-    group deploy[:group]
-    owner deploy[:user]
-  end
-
   [:application, :skylight, :redis, :paypal].each do |service|
     if node[service]
       template "#{deploy[:deploy_to]}/shared/config/#{service.to_s}.yml" do
