@@ -46,18 +46,6 @@ node[:deploy].each do |application, deploy|
     recursive true
   end
 
-  if ENV['RAILS_ENV'] == 'production_ready'
-    template "#{deploy[:deploy_to]}/shared/config/database.yml" do
-      source "database.yml.erb"
-      mode 0755
-      group deploy[:group]
-      owner deploy[:user]
-      variables(
-        "database" => node['deploy']['commandp_production_ready']['database']
-      )
-    end
-  end
-
   template "#{deploy[:deploy_to]}/shared/config/sidekiq.yml" do
     source "sidekiq.yml.erb"
     mode 0755
