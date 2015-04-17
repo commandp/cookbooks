@@ -33,3 +33,4 @@ These cookbooks are taken from AWS's official repo of OpsWorks cookbooks for mod
 * [opscode-cookbooks/imagemagick](https://github.com/opscode-cookbooks/imagemagick) (commit: 20aec2)
 * [opscode-cookbooks/java](https://github.com/opscode-cookbooks/java) (commit: c9fe98)
 * [opscode-cookbooks/rsyslog](https://github.com/opscode-cookbooks/rsyslog) (commit: c9ecba)
+* [SammyLin/chef-collectd](https://github.com/github.com/SammyLin/chef-collectd.git)
