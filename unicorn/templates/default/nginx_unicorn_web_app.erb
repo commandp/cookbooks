@@ -131,6 +131,8 @@ server {
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
   }
+
+  # need_redirect_urls <%= node[:nginx][:need_redirect_urls] %>
   <% if node[:nginx][:need_redirect_urls] %>
   <% node[:nginx][:need_redirect_urls].each do |from_url| %>
   if ($host = '<%= from_url %>') {
