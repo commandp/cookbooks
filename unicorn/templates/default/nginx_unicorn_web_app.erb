@@ -62,6 +62,13 @@ server {
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
   }
+  <% if node[:nginx][:need_redirect_urls] %>
+  <% node[:nginx][:need_redirect_urls].each do |from_url| %>
+  if ($host = '<%= from_url %>') {
+    rewrite ^/(.*)$ https://<%= node[:nginx][:absolute_url] %>/$1 permanent;
+  }
+  <% end %>
+  <% end %>
 }
 
 server {
@@ -124,5 +131,12 @@ server {
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
   }
+  <% if node[:nginx][:need_redirect_urls] %>
+  <% node[:nginx][:need_redirect_urls].each do |from_url| %>
+  if ($host = '<%= from_url %>') {
+    rewrite ^/(.*)$ https://<%= node[:nginx][:absolute_url] %>/$1 permanent;
+  }
+  <% end %>
+  <% end %>
 }
 <% end %>
