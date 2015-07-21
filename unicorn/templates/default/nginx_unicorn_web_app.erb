@@ -141,7 +141,7 @@ server {
     root <%= @application[:absolute_document_root] %>;
   }
 
-  # need_redirect_urls
+  # Need_redirect_urls
   <% node[:nginx][:need_redirect_urls].each do |from_url| %>
   if ($host = '<%= from_url %>') {
     rewrite ^/(.*)$ https://<%= node[:nginx][:absolute_url] %>/$1 permanent;
