@@ -69,6 +69,15 @@ server {
   }
   <% end %>
   <% end %>
+  
+  # Enable cors for fonts and svgs
+  # http://enable-cors.org/server_nginx.html
+  location ~* \.(ttf|ttc|otf|eot|woff|svg|font.css)$ {
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Credentials' 'true';
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+    add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+  }
 }
 
 server {
@@ -138,5 +147,14 @@ server {
     rewrite ^/(.*)$ https://<%= node[:nginx][:absolute_url] %>/$1 permanent;
   }
   <% end %>
+  
+  # Enable cors for fonts and svgs
+  # http://enable-cors.org/server_nginx.html
+  location ~* \.(ttf|ttc|otf|eot|woff|svg|font.css)$ {
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Credentials' 'true';
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+    add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+  }
 }
 <% end %>
