@@ -13,13 +13,13 @@ execute "install libwebp-dev devscripts" do
   command "apt-get install libwebp-dev devscripts -y"
 end
 
-remote_file "#{Chef::Config[:file_cache_path]}/ImageMagick-#{node['imagemagick']['version']}.tar.gz" do
-  source "#{node['imagemagick']['source']}ImageMagick-#{node['imagemagick']['version']}.tar.gz"
+remote_file "#{Chef::Config[:file_cache_path]}/ImageMagick-#{node['imagemagick']['version']}.tar.xz" do
+  source "#{node['imagemagick']['source']}ImageMagick-#{node['imagemagick']['version']}.tar.xz"
   action :create
 end
 
 execute "Unzip ImageMagick #{node['imagemagick']['version']}" do
-  command "tar xzvf #{Chef::Config[:file_cache_path]}/ImageMagick-#{node['imagemagick']['version']}.tar.gz"
+  command "tar xvJf #{Chef::Config[:file_cache_path]}/ImageMagick-#{node['imagemagick']['version']}.tar.xz"
   cwd "#{node['imagemagick']['install_path']}"
   not_if File.directory?("#{Chef::Config[:file_cache_path]}/ImageMagick-#{node['imagemagick']['version']}")
   not_if "which convert"
