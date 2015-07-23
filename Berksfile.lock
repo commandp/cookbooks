@@ -11,11 +11,11 @@ DEPENDENCIES
   aws-tag
     git: git://github.com/commandp/chef-aws-tag.git
     revision: 7984fb7e06ad9c9f14750e99c57b55a051cfba0a
-  bluepill
-    git: git://github.com/opscode-cookbooks/bluepill.git
-    revision: 085a3fe714837b53fd1bc496df83283f5933d2d2
-    tag: v2.3.1
-  build-essential
+  collectd
+    git: git://github.com/SammyLin/chef-collectd.git
+    revision: 2d91ab8c1477ca64dc7a7be4f9a460fb1fef176a
+  datadog
+  docker (~> 0.36.0)
   elasticsearch
     git: git://github.com/elasticsearch/cookbook-elasticsearch.git
     revision: 52d39ccb97fc5743dc82587a40fb756d1fe9714b
@@ -31,68 +31,77 @@ DEPENDENCIES
     git: git://github.com/commandp/le_chef.git
     revision: 6781d666391d21addae8c158056fbedf13321209
   locale
-  mongodb
-    git: git://github.com/edelight/chef-mongodb
-    revision: dc5836318a27331f605f264d946931927dd26bb8
-  monit
-    git: git://github.com/apsoto/monit.git
-    revision: ac3793f37d4f7ca7e4174cfa9a64f8b6948fff44
   newrelic
-  ohai
-    git: git://github.com/opscode-cookbooks/ohai.git
-    revision: d47ade2365789b69d93b559e46db20ffa1589c7a
-    tag: v1.1.12
+  op-collectd
+    path: op-collectd
   opsworks_sidekiq
     git: git://github.com/drakerlabs/opsworks_sidekiq.git
     revision: 7879bc614f36c25ba93712e60d8a3711885bdd3a
-  python
-    git: git://github.com/poise/python.git
-    revision: f9861f908a9a1abdc31d0468aaa3fa6936b9e5c2
-    tag: v1.4.6
-  rsyslog
-    git: git://github.com/opscode-cookbooks/rsyslog.git
-    revision: d5f9f83a1c5d7cba8241bfb9d282ebd6ee958b16
-    tag: v1.11.0
-  windows
-    git: git://github.com/opscode-cookbooks/windows.git
-    revision: e19da06b22f8f3ee7d340f84e624e620b439c7a0
-    tag: v1.30.2
-  yum
-    git: git://github.com/opscode-cookbooks/yum.git
-    revision: 8c56e27c4d8186f0215e372309066d8f0c46d951
-    tag: v3.1.0
-  yum-epel
-    git: git://github.com/opscode-cookbooks/yum-epel.git
-    revision: b542aea037a7395ceb6f10b878b7dc48bc330446
-    tag: v0.3.4
 
 GRAPH
   7-zip (1.0.2)
     windows (>= 1.2.2)
   apt (2.3.8)
   ark (0.4.2)
+  aufs (0.1.1)
+    apt (>= 0.0.0)
+    modules (>= 0.0.0)
   aws (2.4.0)
   aws-tag (0.0.1)
     aws (>= 0.2.4)
-  bluepill (2.3.1)
-    rsyslog (>= 0.0.0)
-  build-essential (2.0.4)
+  build-essential (2.2.3)
   chef-sugar (2.0.0)
-  chef_handler (1.1.6)
+  chef_handler (1.1.9)
+  collectd (0.5.1)
+    build-essential (>= 0.0.0)
+    yum-epel (>= 0.0.0)
   curl (2.0.0)
+  datadog (2.1.0)
+    apt (>= 0.0.0)
+    chef_handler (~> 1.1.0)
+    yum (>= 0.0.0)
+  device-mapper (0.1.0)
+    apt (>= 0.0.0)
+    modules (>= 0.0.0)
+  dmg (2.2.2)
+  docker (0.36.0)
+    apt (>= 0.0.0)
+    aufs (>= 0.1.1)
+    device-mapper (>= 0.1.0)
+    git (>= 0.0.0)
+    golang (>= 0.0.0)
+    homebrew (>= 0.0.0)
+    iptables (>= 0.0.0)
+    lxc (>= 1.1.6)
+    modules (>= 0.0.0)
+    runit (>= 0.0.0)
+    sysctl (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  dpkg_autostart (0.2.0)
   elasticsearch (0.3.13)
     ark (>= 0.2.4)
+  git (4.3.0)
+    build-essential (>= 0.0.0)
+    dmg (>= 0.0.0)
+    windows (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  golang (1.5.1)
+  homebrew (1.13.0)
+    build-essential (>= 2.1.2)
   iis (2.1.2)
     windows (>= 1.2.6)
+  iptables (1.0.0)
+  iptables-ng (2.2.7)
   java (1.21.2)
   layer-custom (1.0.0)
   le_chef (0.0.2)
     apt (>= 0.0.0)
   locale (1.0.2)
-  mongodb (0.16.3)
-    apt (>= 1.8.2)
-    python (>= 0.0.0)
-    yum (>= 3.0.0)
+  lxc (2.0.0)
+    dpkg_autostart (>= 0.1.10)
+    iptables-ng (>= 0.0.0)
+    polipo (>= 0.0.0)
+  modules (0.2.0)
   monit (0.7.5)
   ms_dotnet4 (1.0.2)
     windows (>= 0.0.0)
@@ -109,8 +118,10 @@ GRAPH
     ark (>= 0.0.0)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  ohai (1.1.12)
+  ohai (2.0.1)
+  op-collectd (0.1.0)
   opsworks_sidekiq (0.0.0)
+  packagecloud (0.0.19)
   php (1.4.6)
     build-essential (>= 0.0.0)
     iis (>= 0.0.0)
@@ -118,17 +129,21 @@ GRAPH
     windows (>= 0.0.0)
     xml (>= 0.0.0)
     yum-epel (>= 0.0.0)
+  polipo (0.1.0)
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  rsyslog (1.11.0)
-  windows (1.30.2)
+  runit (1.7.2)
+    packagecloud (>= 0.0.0)
+  sysctl (0.6.2)
+    ohai (>= 0.0.0)
+  windows (1.37.0)
     chef_handler (>= 0.0.0)
   xml (1.2.6)
     build-essential (>= 0.0.0)
     chef-sugar (>= 0.0.0)
-  yum (3.1.0)
-  yum-epel (0.3.4)
-    yum (~> 3.0)
+  yum (3.6.3)
+  yum-epel (0.6.2)
+    yum (~> 3.2)
   yum-mysql-community (0.1.8)
     yum (>= 3.0.0)
