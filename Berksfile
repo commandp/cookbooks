@@ -1,6 +1,6 @@
 source 'https://api.berkshelf.com'
 
-cookbook 'le_chef', github: 'commandp/le_chef'
+# cookbook 'le_chef', github: 'commandp/le_chef'
 cookbook 'newrelic'
 cookbook 'locale'
 cookbook 'aws'
@@ -13,6 +13,7 @@ cookbook 'elasticsearch', git: 'git://github.com/elasticsearch/cookbook-elastics
 cookbook 'layer-custom', git: 'git://github.com/amazonwebservices/opsworks-elasticsearch-cookbook.git', rel: "layer-custom"
 cookbook 'docker', '~> 0.36.0'
 cookbook 'datadog'
+cookbook 'logentries_agent', '~> 0.2.0'
 
 cookbook 'collectd', git: 'git://github.com/SammyLin/chef-collectd.git'
 cookbook 'op-collectd', path: 'op-collectd'
