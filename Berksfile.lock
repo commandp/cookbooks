@@ -27,10 +27,8 @@ DEPENDENCIES
     git: https://github.com/ajturner/opsworks-elasticsearch-cookbook
     revision: ad0f538a10fe7c3a81cd16ef9c55282ecd0bb6b0
     rel: layer-custom
-  le_chef
-    git: git://github.com/commandp/le_chef.git
-    revision: 6781d666391d21addae8c158056fbedf13321209
   locale
+  logentries_agent (~> 0.2.0)
   newrelic
   op-collectd
     path: op-collectd
@@ -94,9 +92,10 @@ GRAPH
   iptables-ng (2.2.7)
   java (1.21.2)
   layer-custom (1.0.0)
-  le_chef (0.0.2)
-    apt (>= 0.0.0)
   locale (1.0.2)
+  logentries_agent (0.2.6)
+    apt (>= 0.0.0)
+    yum (>= 0.0.0)
   lxc (2.0.0)
     dpkg_autostart (>= 0.1.10)
     iptables-ng (>= 0.0.0)
