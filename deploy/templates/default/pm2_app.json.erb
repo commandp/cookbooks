@@ -1,0 +1,16 @@
+
+{
+  "apps" : [{
+    "name"        : "<%= @application %>",
+    "script"      : "<%= @deploy[:deploy_to] %>/current/start.js",
+    "instances"   : 0,
+    "exec_mode"   : "cluster",
+    "args"        : [],
+    "watch"       : false,
+    "node_args"   : [],
+    "max_memory_restart": "512M",
+    "merge_logs"  : true,
+    "cwd"         : "<%= @deploy[:deploy_to] %>/current",
+    "env": <%= @environment.to_json %>
+  }]
+}

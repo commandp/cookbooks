@@ -1,11 +1,9 @@
 check host node_web_app_<%= @application_name %> with address 127.0.0.1
-start program = "/bin/bash -c 'cd <%= @deploy[:deploy_to] %>/current ; source <%= @deploy[:deploy_to] %>/shared/app.env ; /usr/bin/env NODE_PATH=<%= @deploy[:deploy_to] %>/current/node_modules:<%= @deploy[:deploy_to] %>/current /usr/local/bin/npm run prod >> <%= @deploy[:deploy_to] %>/shared/log/output.log 2>> <%= @deploy[:deploy_to] %>/shared/log/error.log'"
-  stop program = "/usr/bin/pkill -f 'node start.js'"
-  <% if @deploy[:ssl_support] -%>
-  if failed port <%= @deploy[:environment][:PORT] || '8080' %> type TCPSSL protocol HTTP
-  <% else -%>
-  if failed port <%= @deploy[:environment][:PORT] || '8080' %>  protocol HTTP
-  <% end -%>
+  start program = "/bin/bash -c 'PATH=/usr/local/bin:$PATH HOME=/home/<%= @deploy[:user] %> PM2_HOME=<%= @deploy[:deploy_to] %>/shared/pm2 pm2 start <%= @deploy[:deploy_to] %>/shared/app.json'" as uid "<%= @deploy[:user] %>" 
+  stop program = "/bin/bash -c 'PATH=/usr/local/bin:$PATH HOME=/home/<%= @deploy[:user] %> PM2_HOME=<%= @deploy[:deploy_to] %>/shared/pm2 pm2 kill'" as uid "<%= @deploy[:user] %>" 
+  restart program = "/bin/bash -c 'PATH=/usr/local/bin:$PATH HOME=/home/<%= @deploy[:user] %> PM2_HOME=<%= @deploy[:deploy_to] %>/shared/pm2 pm2 startOrGracefulReload  <%= @deploy[:deploy_to] %>/shared/app.json'" as uid "<%= @deploy[:user] %>"
+  if failed port 8080 protocol HTTP
     request /
     with timeout 10 seconds
     then restart
+
