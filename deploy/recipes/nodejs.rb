@@ -12,11 +12,6 @@ node[:deploy].each do |application, deploy|
     path deploy[:deploy_to]
   end
 
-  opsworks_deploy do
-    deploy_data deploy
-    app application
-  end
-  
   if node[:node_version]
     execute 'Installing n' do
       command 'npm cache clean -f && npm install -g n'
@@ -28,6 +23,12 @@ node[:deploy].each do |application, deploy|
       not_if "node -v | grep #{node[:node_version]}"
     end
   end
+
+  opsworks_deploy do
+    deploy_data deploy
+    app application
+  end
+  
   
   %w{webpack pm2}.each do |pkg|
     execute "npm install #{pkg} on gloabl" do
