@@ -29,10 +29,7 @@ DEPENDENCIES
     rel: layer-custom
   locale
   logentries_agent (~> 0.2.0)
-  monit
-    git: git://github.com/phlipper/chef-monit.git
-    revision: 9aecee976641ad2f9b3b3c1924d6ce97b8a17216
-    tag: v1.5.4
+  monit-ng (~> 2.0.2)
   newrelic
   op-collectd
     path: op-collectd
@@ -105,8 +102,12 @@ GRAPH
     iptables-ng (>= 0.0.0)
     polipo (>= 0.0.0)
   modules (0.2.0)
-  monit (1.5.4)
+  monit (0.7.5)
+  monit-ng (2.0.2)
+    apt (>= 0.0.0)
     build-essential (>= 0.0.0)
+    ubuntu (>= 0.0.0)
+    yum-epel (>= 0.0.0)
   ms_dotnet4 (1.0.2)
     windows (>= 0.0.0)
   mysql (5.3.6)
@@ -141,6 +142,8 @@ GRAPH
     packagecloud (>= 0.0.0)
   sysctl (0.6.2)
     ohai (>= 0.0.0)
+  ubuntu (1.1.8)
+    apt (>= 0.0.0)
   windows (1.37.0)
     chef_handler (>= 0.0.0)
   xml (1.2.6)

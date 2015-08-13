@@ -14,7 +14,7 @@ cookbook 'layer-custom', git: 'git://github.com/amazonwebservices/opsworks-elast
 cookbook 'docker', '~> 0.36.0'
 cookbook 'datadog'
 cookbook 'logentries_agent', '~> 0.2.0'
-cookbook 'monit', github: 'phlipper/chef-monit', tag: 'v1.5.4'
+cookbook 'monit-ng', '~> 2.0.2'
 
 cookbook 'collectd', git: 'git://github.com/SammyLin/chef-collectd.git'
 cookbook 'op-collectd', path: 'op-collectd'
