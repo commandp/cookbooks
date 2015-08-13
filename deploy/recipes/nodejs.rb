@@ -16,7 +16,19 @@ node[:deploy].each do |application, deploy|
     deploy_data deploy
     app application
   end
+  
+  if node[:node_version]
+    execute 'Installing n' do
+      command 'npm cache clean -f && npm install -g n'
+      not_if 'which n'
+    end
 
+    execute "Installing Nodejs #{node[:node_version]}" do
+      command "n #{node[:node_version]}"
+      not_if "node -v | grep #{node[:node_version]}"
+    end
+  end
+  
   %w{webpack pm2}.each do |pkg|
     execute "npm install #{pkg} on gloabl" do
       cwd ::File.join(deploy[:deploy_to], 'current')
