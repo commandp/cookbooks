@@ -1,7 +1,20 @@
 check host node_web_app_<%= @application_name %> with address 127.0.0.1
-  start program = "/bin/bash -c 'PATH=/usr/local/bin:$PATH HOME=/home/<%= @deploy[:user] %> PM2_HOME=<%= @deploy[:deploy_to] %>/shared/pm2 pm2 start <%= @deploy[:deploy_to] %>/shared/app.json'" as uid "<%= @deploy[:user] %>" 
-  stop program = "/bin/bash -c 'PATH=/usr/local/bin:$PATH HOME=/home/<%= @deploy[:user] %> PM2_HOME=<%= @deploy[:deploy_to] %>/shared/pm2 pm2 kill'" as uid "<%= @deploy[:user] %>" 
-  restart program = "/bin/bash -c 'PATH=/usr/local/bin:$PATH HOME=/home/<%= @deploy[:user] %> PM2_HOME=<%= @deploy[:deploy_to] %>/shared/pm2 pm2 startOrGracefulReload  <%= @deploy[:deploy_to] %>/shared/app.json'" as uid "<%= @deploy[:user] %>"
+  start program = "/bin/bash -c 'PATH=/usr/local/bin:$PATH HOME=/home/<%= @deploy[:user] %> \
+                                 PM2_HOME=<%= @deploy[:deploy_to] %>/shared/pm2 \
+                                 pm2 start <%= @deploy[:deploy_to] %>/shared/app.json'"
+       as uid "<%= @deploy[:user] %>" 
+
+  stop program = "/bin/bash -c 'PATH=/usr/local/bin:$PATH HOME=/home/<%= @deploy[:user] %> \
+                                PM2_HOME=<%= @deploy[:deploy_to] %>/shared/pm2 \
+                                pm2 kill'"
+       as uid "<%= @deploy[:user] %>" 
+
+  restart program = "/bin/bash -c 'PATH=/usr/local/bin:$PATH HOME=/home/<%= @deploy[:user] %> \
+                     PM2_HOME=<%= @deploy[:deploy_to] %>/shared/pm2 \
+                     pm2 startOrGracefulReload <%= @deploy[:deploy_to] %>/shared/app.json'"
+          as uid "<%= @deploy[:user] %>"
+          with timeout 120 seconds
+
   if failed port 8080 protocol HTTP
     request /
     with timeout 10 seconds
