@@ -15,6 +15,7 @@ cookbook 'docker', '~> 0.36.0'
 cookbook 'datadog'
 cookbook 'logentries_agent', '~> 0.2.0'
 cookbook 'monit-ng', '~> 2.0.2'
+cookbook 'beaver', '~> 1.5.0'
 
 cookbook 'collectd', git: 'git://github.com/SammyLin/chef-collectd.git'
 cookbook 'op-collectd', path: 'op-collectd'

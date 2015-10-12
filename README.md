@@ -34,3 +34,4 @@ These cookbooks are taken from AWS's official repo of OpsWorks cookbooks for mod
 * [opscode-cookbooks/java](https://github.com/opscode-cookbooks/java) (commit: c9fe98)
 * [opscode-cookbooks/rsyslog](https://github.com/opscode-cookbooks/rsyslog) (commit: c9ecba)
 * [SammyLin/chef-collectd](https://github.com/github.com/SammyLin/chef-collectd.git)
+* [alappe/cookbook-beaver](https://github.com/alappe/cookbook-beaver) (v1.5.0)
