@@ -54,3 +54,26 @@ server {
   return 301 $scheme://$1$request_uri;
 }
 
+<% if @application[:ssl_support] %>
+server {
+  listen   443;
+  server_name  <%= @deploy[:domains].join(" ") %> <%= node[:hostname] %>;
+  access_log  /var/log/nginx/<%= @application %>-ssl.access.log json;
+
+  ssl on;
+  ssl_certificate /etc/nginx/ssl/<%= @application[:domains].first %>.crt;
+  ssl_certificate_key /etc/nginx/ssl/<%= @application[:domains].first %>.key;
+  <% if @application[:ssl_certificate_ca] -%>
+  ssl_client_certificate /etc/nginx/ssl/<%= @application[:domains].first %>.ca;
+  <% end -%>
+
+  ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+
+  location / {
+    root <%= "#{@deploy[:deploy_to]}/current" %>;
+    proxy_pass http://node_app_<%= @application %>;
+
+  }
+
+}
+<% end %>

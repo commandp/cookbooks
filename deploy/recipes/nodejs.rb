@@ -6,6 +6,10 @@ node[:deploy].each do |application, deploy|
     next
   end
 
+  file "/etc/nginx/sites-available/default" do
+    action :delete
+  end
+
   opsworks_deploy_dir do
     user deploy[:user]
     group deploy[:group]
