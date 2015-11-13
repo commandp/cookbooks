@@ -18,19 +18,19 @@ node[:deploy].each do |application, deploy|
   file "/etc/nginx/ssl/#{deploy[:domains].first}.crt" do
     content deploy[:ssl_certificate]
     mode '0600'
-    only_if deploy[:ssl_support]
+    only_if { deploy[:ssl_support] }
   end
 
   file "/etc/nginx/ssl/#{deploy[:domains].first}.key" do
     content deploy[:ssl_certificate_key]
     mode '0600'
-    only_if deploy[:ssl_support]
+    only_if { deploy[:ssl_support] }
   end
 
   file "/etc/nginx/ssl/#{deploy[:domains].first}.key" do
     content deploy[:ssl_certificate_ca]
     mode '0600'
-    only_if deploy[:ssl_support] && deploy[:ssl_certificate_ca]
+    only_if { deploy[:ssl_support] && deploy[:ssl_certificate_ca] }
   end
 
   template "/etc/nginx/sites-available/#{application}" do
