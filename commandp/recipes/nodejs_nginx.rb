@@ -22,12 +22,12 @@ node[:deploy].each do |application, deploy|
   end
 
   file "/etc/nginx/ssl/#{deploy[:domains].first}.key" do
-    content deploy[:ssl_certificate_key]
+    content deploy[:sl_certificate_key
     mode '0600'
     only_if { deploy[:ssl_support] }
   end
 
-  file "/etc/nginx/ssl/#{deploy[:domains].first}.key" do
+  file "/etc/nginx/ssl/#{deploy[:domains].first}.ca" do
     content deploy[:ssl_certificate_ca]
     mode '0600'
     only_if { deploy[:ssl_support] && deploy[:ssl_certificate_ca] }
