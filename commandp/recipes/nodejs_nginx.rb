@@ -11,6 +11,28 @@ node[:deploy].each do |application, deploy|
     only_if { ::File.exists?('/etc/nginx/sites-available/default') }
   end
 
+  directory '/etc/nginx/ssl' do
+    action :create
+  end
+
+  file "/etc/nginx/ssl/#{deploy[:domains].first}.crt" do
+    content deploy[:ssl_certificate]
+    mode '0600'
+    only_if deploy[:ssl_support]
+  end
+
+  file "/etc/nginx/ssl/#{deploy[:domains].first}.key" do
+    content deploy[:ssl_certificate_key]
+    mode '0600'
+    only_if deploy[:ssl_support]
+  end
+
+  file "/etc/nginx/ssl/#{deploy[:domains].first}.key" do
+    content deploy[:ssl_certificate_ca]
+    mode '0600'
+    only_if deploy[:ssl_support] && deploy[:ssl_certificate_ca]
+  end
+
   template "/etc/nginx/sites-available/#{application}" do
     Chef::Log.debug("Generating Nginx site template for #{application.inspect}")
 
