@@ -24,8 +24,14 @@ server {
 
   keepalive_timeout 360;
 
+  root <%= "#{@deploy[:deploy_to]}/current" %>;
+
   location / {
-    root <%= "#{@deploy[:deploy_to]}/current" %>;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-NginX-Proxy true;
+
     proxy_pass http://node_app_<%= @application %>;
 
     # From Ucloud ULB
@@ -69,10 +75,15 @@ server {
 
   ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
 
+  root <%= "#{@deploy[:deploy_to]}/current" %>;
+  
   location / {
-    root <%= "#{@deploy[:deploy_to]}/current" %>;
-    proxy_pass http://node_app_<%= @application %>;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-NginX-Proxy true;
 
+    proxy_pass http://node_app_<%= @application %>;
   }
 
 }
