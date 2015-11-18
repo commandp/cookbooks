@@ -45,12 +45,12 @@ node[:deploy].each do |application, deploy|
       deploy: deploy
     )
   end
-
   link "/etc/nginx/sites-enabled/#{application}" do
     to "/etc/nginx/sites-available/#{application}"
+  end
 
-    if File.exists?("/etc/nginx/sites-enabled/#{application}")
-      notifies :reload, "service[nginx]", :delayed
-    end
+  service "nginx" do
+    supports :restart => true, :reload => true, :status => true
+    action :reload
   end
 end
