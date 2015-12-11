@@ -11,7 +11,9 @@ DEPENDENCIES
   aws-tag
     git: git://github.com/commandp/chef-aws-tag.git
     revision: 7984fb7e06ad9c9f14750e99c57b55a051cfba0a
-  beaver (~> 1.5.0)
+  beaver
+    git: git@github.com:commandp/cookbook-beaver.git
+    revision: 2d26b4d3e6ab23e808121de94196dc2e1c1e88a0
   collectd
     git: git://github.com/SammyLin/chef-collectd.git
     revision: 2d91ab8c1477ca64dc7a7be4f9a460fb1fef176a
