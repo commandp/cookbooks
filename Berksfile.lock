@@ -12,7 +12,7 @@ DEPENDENCIES
     git: git://github.com/commandp/chef-aws-tag.git
     revision: 7984fb7e06ad9c9f14750e99c57b55a051cfba0a
   beaver
-    git: git@github.com:commandp/cookbook-beaver.git
+    git: git://github.com/commandp/cookbook-beaver.git
     revision: 2d26b4d3e6ab23e808121de94196dc2e1c1e88a0
   collectd
     git: git://github.com/SammyLin/chef-collectd.git
