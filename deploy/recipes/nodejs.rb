@@ -46,8 +46,7 @@ node[:deploy].each do |application, deploy|
     user deploy[:user]
     group deploy[:group]
     cwd ::File.join(deploy[:deploy_to], 'current')
-    command '/usr/local/bin/npm run build'
-    not_if { ::File.directory?("#{deploy[:deploy_to]}/current/build") }
+    command "source #{deploy[:deploy_to]}/shared/app.env && /usr/local/bin/npm run build"
   end
 
 
