@@ -44,6 +44,10 @@ server {
   }
   <% end %>
 
+  location ~ /(en|zh-TW|zh-CN|jp)(.*)$ {
+    rewrite ^/(en|zh-TW|zh-CN|jp)/(.+) /$2 redirect;
+  }
+
   location / {
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
