@@ -25,7 +25,7 @@ server {
   keepalive_timeout 360;
 
   root <%= "#{@deploy[:deploy_to]}/current" %>;
-  <% if @deploy[:mobile_redirect_url] %>
+  <% if @deploy[:nodejs][:mobile_redirect_url] %>
   set $mobile_rewrite do_not_perform;
 
   ## chi http_user_agent for mobile / smart phones ##
@@ -37,9 +37,9 @@ server {
     set $mobile_rewrite perform;
   }
 
-  ## redirect to <%= @deploy[:mobile_redirect_url] %> ##
+  ## redirect to <%= @deploy[:nodejs][:mobile_redirect_url] %> ##
   if ($mobile_rewrite = perform) {
-    rewrite ^ <%= @deploy[:mobile_redirect_url] %>$request_uri? redirect;
+    rewrite ^ <%= @deploy[:nodejs][:mobile_redirect_url] %>$request_uri? redirect;
     break;
   }
   <% end %>
@@ -94,7 +94,7 @@ server {
   ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
 
   root <%= "#{@deploy[:deploy_to]}/current" %>;
-   <% if @deploy[:mobile_redirect_url] %>
+  <% if @deploy[:nodejs][:mobile_redirect_url] %>
   set $mobile_rewrite do_not_perform;
 
   ## chi http_user_agent for mobile / smart phones ##
@@ -106,9 +106,9 @@ server {
     set $mobile_rewrite perform;
   }
 
-  ## redirect to <%= @deploy[:mobile_redirect_url] %> ##
+  ## redirect to <%= @deploy[:nodejs][:mobile_redirect_url] %> ##
   if ($mobile_rewrite = perform) {
-    rewrite ^ <%= @deploy[:mobile_redirect_url] %>$request_uri? redirect;
+    rewrite ^ <%= @deploy[:nodejs][:mobile_redirect_url] %>$request_uri? redirect;
     break;
   }
   <% end %> 
