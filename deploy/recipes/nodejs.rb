@@ -46,7 +46,7 @@ node[:deploy].each do |application, deploy|
     user deploy[:user]
     group deploy[:group]
     cwd ::File.join(deploy[:deploy_to], 'current')
-    command "source #{deploy[:deploy_to]}/shared/app.env && /usr/local/bin/npm run build"
+    command "/usr/local/bin/npm run build"
   end
 
 
