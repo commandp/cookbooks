@@ -46,6 +46,7 @@ node[:deploy].each do |application, deploy|
     user deploy[:user]
     group deploy[:group]
     cwd ::File.join(deploy[:deploy_to], 'current')
+    environment deploy[:environment_variables].to_hash
     command "/usr/local/bin/npm run build"
   end
 
