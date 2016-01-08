@@ -44,8 +44,12 @@ server {
   }
   <% end %>
 
-  location ~ /(en|zh-TW|zh-CN|jp)(.*)$ {
-    rewrite ^/(en|zh-TW|zh-CN|jp)/(.+) /$2?locale=$1 redirect;
+  location ~ /(en|zh-TW|zh-CN|jp)/(.*)$ {
+    rewrite ^/(en|zh-TW|zh-CN|jp)/(.*) /$2?locale=$1 redirect;
+  }
+
+  location ~ /(en|zh-TW|zh-CN|jp)$ {
+    rewrite ^/(en|zh-TW|zh-CN|jp) /?locale=$1 redirect;
   }
 
   location / {
@@ -117,8 +121,12 @@ server {
   }
   <% end %> 
 
-  location ~ /(en|zh-TW|zh-CN|jp)(.*)$ {
-    rewrite ^/(en|zh-TW|zh-CN|jp)/(.+) /$2?locale=$1 redirect;
+  location ~ /(en|zh-TW|zh-CN|jp)/(.*)$ {
+    rewrite ^/(en|zh-TW|zh-CN|jp)/(.*) /$2?locale=$1 permanent;
+  }
+
+  location ~ /(en|zh-TW|zh-CN|jp)$ {
+    rewrite ^/(en|zh-TW|zh-CN|jp) /?locale=$1 permanent;
   }
 
   location / {
