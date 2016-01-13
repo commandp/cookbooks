@@ -27,10 +27,7 @@ node[:deploy].each do |application, deploy|
     owner deploy[:user]
     group deploy[:group]
     source "unicorn.service.erb"
-    variables(:deploy => deploy,
-              :application => application,
-              :environment => OpsWorks::Escape.escape_double_quotes(deploy[:environment_variables])
-             )
+    variables(:deploy => deploy, :application => application)
   end
 
   service "unicorn_#{application}" do
@@ -46,6 +43,9 @@ node[:deploy].each do |application, deploy|
     owner deploy[:user]
     group deploy[:group]
     source "unicorn.conf.erb"
-    variables(:deploy => deploy, :application => application)
+    variables(:deploy => deploy,
+              :application => application,
+              :environment => OpsWorks::Escape.escape_double_quotes(deploy[:environment_variables])
+             )
   end
 end
