@@ -41,13 +41,14 @@ server {
     set $mobile_rewrite nil;
   }
 
-  # https://commandp.com/shop/glass_case => https://m.commandp.com/shop?category=glass_case
+  # https://commandp.com/shop/glass_case => <%= @deploy[:nodejs][:mobile_redirect_url] %>/shop?category=glass_case
   if ($uri ~* '/shop') {
     set $mobile_rewrite "${mobile_rewrite}shop";
   }
 
   if ($mobile_rewrite = performshop) {
-    rewrite ^/shop/(.+) https://m.commandp.com/shop?category=$1 redirect;
+    rewrite ^/shop/(.+)/(.+) <%= @deploy[:nodejs][:mobile_redirect_url] %>/shop/$2/$2 redirect;
+    rewrite ^/shop/(.+) <%= @deploy[:nodejs][:mobile_redirect_url] %>/shop?category=$1 redirect;
     break;
   }
 
@@ -59,11 +60,11 @@ server {
   <% end %>
 
   location ~ /(en|zh-TW|zh-CN|jp)/(.*)$ {
-    rewrite ^/(en|zh-TW|zh-CN|jp)/(.*) /$2?locale=$1 redirect;
+    rewrite ^/(en|zh-TW|zh-CN|jp)/(.*) /$2?locale=$1 permanent;
   }
 
   location ~ /(en|zh-TW|zh-CN|jp)$ {
-    rewrite ^/(en|zh-TW|zh-CN|jp) /?locale=$1 redirect;
+    rewrite ^/(en|zh-TW|zh-CN|jp) /?locale=$1 permanent;
   }
 
   location / {
@@ -132,13 +133,14 @@ server {
     set $mobile_rewrite nil;
   }
 
-  # https://commandp.com/shop/glass_case => https://m.commandp.com/shop?category=glass_case
+  # https://commandp.com/shop/glass_case => <%= @deploy[:nodejs][:mobile_redirect_url] %>/shop?category=glass_case
   if ($uri ~* '/shop') {
     set $mobile_rewrite "${mobile_rewrite}shop";
   }
 
   if ($mobile_rewrite = performshop) {
-    rewrite ^/shop/(.+) https://m.commandp.com/shop?category=$1 redirect;
+    rewrite ^/shop/(.+)/(.+) <%= @deploy[:nodejs][:mobile_redirect_url] %>/shop/$2/$2 redirect;
+    rewrite ^/shop/(.+) <%= @deploy[:nodejs][:mobile_redirect_url] %>/shop?category=$1 redirect;
     break;
   }
 
