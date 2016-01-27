@@ -63,6 +63,11 @@ server {
   }
   <% end %>
 
+  # after at 2016/10/31 ask marketing team than kill
+  location ~ /campaign/urayasu$ {
+    rewrite ^/campaign/urayasu https://campaign.commandp.com/zh-TW/campaign/urayasu permanent;
+  }
+
   location ~ /(en|zh-TW|zh-CN|jp)/(.*)$ {
     rewrite ^/(en|zh-TW|zh-CN|jp)/(.*) /$2?locale=$1 permanent;
   }
@@ -158,6 +163,11 @@ server {
     break;
   }
   <% end %> 
+
+  # after at 2016/10/31 ask marketing team than kill
+  location ~ /campaign/urayasu$ {
+    rewrite ^/campaign/urayasu https://campaign.commandp.com/zh-TW/campaign/urayasu permanent;
+  }
 
   location ~ /(en|zh-TW|zh-CN|jp)/(.*)$ {
     rewrite ^/(en|zh-TW|zh-CN|jp)/(.*) /$2?locale=$1 permanent;
