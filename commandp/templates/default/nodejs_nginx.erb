@@ -25,6 +25,13 @@ server {
   keepalive_timeout 360;
 
   root <%= "#{@deploy[:deploy_to]}/current" %>;
+
+  error_page 500 502 503 504 /500.html;
+
+  location = /500.html {
+    root <%= "#{@deploy[:deploy_to]}/current/static" %>;
+  }
+
   <% if @deploy[:nodejs][:mobile_redirect_url] %>
   set $mobile_rewrite do_not_perform;
 
@@ -126,6 +133,13 @@ server {
   ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
 
   root <%= "#{@deploy[:deploy_to]}/current" %>;
+
+  error_page 500 502 503 504 /500.html;
+
+  location = /500.html {
+    root <%= "#{@deploy[:deploy_to]}/current/static" %>;
+  }
+
   <% if @deploy[:nodejs][:mobile_redirect_url] %>
   set $mobile_rewrite do_not_perform;
 
