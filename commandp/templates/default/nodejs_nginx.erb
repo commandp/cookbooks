@@ -44,17 +44,13 @@ server {
     set $mobile_rewrite perform;
   }
 
-  if ($uri = '/mobile') {
+  if ($uri ~* "/(mobile|sign_in|b2b|contact|faq|api)") {
     set $mobile_rewrite nil;
   }
 
   # https://commandp.com/shop/glass_case => <%= @deploy[:nodejs][:mobile_redirect_url] %>/shop?category=glass_case
   if ($uri ~* '/shop') {
     set $mobile_rewrite "${mobile_rewrite}shop";
-  }
-
-  if ($uri ~* '/sign_in') {
-    set $mobile_rewrite nil;
   }
 
   if ($mobile_rewrite = performshop) {
@@ -152,17 +148,13 @@ server {
     set $mobile_rewrite perform;
   }
 
-  if ($uri = '/mobile') {
+  if ($uri ~* "/(mobile|sign_in|b2b|contact|faq|api)") {
     set $mobile_rewrite nil;
   }
 
   # https://commandp.com/shop/glass_case => <%= @deploy[:nodejs][:mobile_redirect_url] %>/shop?category=glass_case
   if ($uri ~* '/shop') {
     set $mobile_rewrite "${mobile_rewrite}shop";
-  }
-
-  if ($uri ~* '/sign_in') {
-    set $mobile_rewrite nil;
   }
 
   if ($mobile_rewrite = performshop) {
