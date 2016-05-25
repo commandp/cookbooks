@@ -53,7 +53,7 @@ node[:deploy].each do |application, deploy|
     owner deploy[:user]
   end
 
-  [:application, :skylight, :redis, :paypal, :newrelic].each do |service|
+  [:application, :skylight, :redis, :paypal, :newrelic, :shards].each do |service|
     if node[service]
       template "#{deploy[:deploy_to]}/shared/config/#{service.to_s}.yml" do
         source "service.yml.erb"
