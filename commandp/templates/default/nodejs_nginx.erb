@@ -44,7 +44,7 @@ server {
     set $mobile_rewrite perform;
   }
 
-  if ($uri ~* "/(mobile|sign_in|b2b|contact|faq|api)") {
+  if ($uri ~* "/(search|mobile|sign_in|b2b|contact|faq|api)") {
     set $mobile_rewrite nil;
   }
 
@@ -148,7 +148,7 @@ server {
     set $mobile_rewrite perform;
   }
 
-  if ($uri ~* "/(mobile|sign_in|b2b|contact|faq|api)") {
+  if ($uri ~* "/(search|mobile|sign_in|b2b|contact|faq|api)") {
     set $mobile_rewrite nil;
   }
 
