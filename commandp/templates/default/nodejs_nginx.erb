@@ -34,6 +34,11 @@ server {
   location /robots.txt {return 200 "User-agent: *\nDisallow: /\n";}
   <% end %>
 
+  location /apple-app-site-association {
+    default_type application/pkcs7-mime;
+    return 200 "{\n    \"applinks\": {\n        \"apps\": [],\n        \"details\": [\n            {\n                \"appID\": \"USB5K86T2G.abcolor.CommandP\",\n                \"paths\": [ \"*\" ]\n            },\n            {\n                \"appID\": \"USB5K86T2G.abcolor.CommandPdev\",\n                \"paths\": [ \"*\" ]\n            },\n            {\n                \"appID\": \"USB5K86T2G.abcolor.CommandPstaging\",\n                \"paths\": [ \"*\" ]\n            }\n        ]\n    }\n}";
+  }
+
   location = /500.html {
     root <%= "#{@deploy[:deploy_to]}/current/static" %>;
   }
@@ -167,6 +172,11 @@ server {
   <% else %>
   location /robots.txt {return 200 "User-agent: *\nDisallow: /\n";}
   <% end %>
+
+  location /apple-app-site-association {
+    default_type application/pkcs7-mime;
+    return 200 "{\n    \"applinks\": {\n        \"apps\": [],\n        \"details\": [\n            {\n                \"appID\": \"USB5K86T2G.abcolor.CommandP\",\n                \"paths\": [ \"*\" ]\n            },\n            {\n                \"appID\": \"USB5K86T2G.abcolor.CommandPdev\",\n                \"paths\": [ \"*\" ]\n            },\n            {\n                \"appID\": \"USB5K86T2G.abcolor.CommandPstaging\",\n                \"paths\": [ \"*\" ]\n            }\n        ]\n    }\n}";
+  }
 
   error_page 500 502 503 504 /500.html;
 
