@@ -1,3 +1,8 @@
+# convert nginx log format to json, see:
+#
+#   1. http://nginx.org/en/docs/http/ngx_http_log_module.html
+#   2. https://blog.logentries.com/2014/08/json-logging-in-apache-and-nginx-with-logentries/
+#
 log_format json '{"@timestamp":"$time_iso8601",'
                 '"host":"$server_addr",'
                 '"clientip":"$remote_addr",'
