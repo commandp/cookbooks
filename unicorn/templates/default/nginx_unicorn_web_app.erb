@@ -35,33 +35,33 @@ server {
     client_max_body_size <%= @application[:nginx][:client_max_body_size] %>;
   <% end %>
 
-  # Admin Panel
-  if ($host ~* admin) {
-    set $admin "HOST";
-  }
-
-  if ($uri ~* (?:\/(zh-TW|zh-CN|ja|en))?\/(admin)) {
-    set $admin "${admin}URL";
-  }
-
-  if ($admin = "URL") {
-    return 403;
-    break;
-  }
-
-  # Print Panel
-  if ($host ~ factory) {
-    set $factory "HOST";
-  }
-
-  if ($uri ~ (?:\/(zh-TW|zh-CN|ja|en))?\/(print)) {
-    set $factory "${factory}URL";
-  }
-
-  if ($factory = "URL") {
-    return 403;
-    break;
-  }
+#   # Admin Panel
+#   if ($host ~* admin) {
+#     set $admin "HOST";
+#   }
+#
+#   if ($uri ~* (?:\/(zh-TW|zh-CN|ja|en))?\/(admin)) {
+#     set $admin "${admin}URL";
+#   }
+#
+#   if ($admin = "URL") {
+#     return 403;
+#     break;
+#   }
+#
+#   # Print Panel
+#   if ($host ~ factory) {
+#     set $factory "HOST";
+#   }
+#
+#   if ($uri ~ (?:\/(zh-TW|zh-CN|ja|en))?\/(print)) {
+#     set $factory "${factory}URL";
+#   }
+#
+#   if ($factory = "URL") {
+#     return 403;
+#     break;
+#   }
 
   location / {
     try_files $uri/index.html $uri/index.htm @unicorn;
