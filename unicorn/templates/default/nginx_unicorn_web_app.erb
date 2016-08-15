@@ -67,6 +67,12 @@ server {
     try_files $uri/index.html $uri/index.htm @unicorn;
   }
 
+  location ~* ^/media/ {
+    try_files $uri @unicorn;
+    expires max;
+    break;
+  }
+
   location = /elb_check {
     access_log off;
     return 200 'Welcome ELB';
@@ -186,6 +192,12 @@ server {
 
   location / {
     try_files $uri/index.html $uri/index.htm @unicorn;
+  }
+
+  location ~* ^/media/ {
+    try_files $uri @unicorn;
+    expires max;
+    break;
   }
 
   location = /elb_check {
