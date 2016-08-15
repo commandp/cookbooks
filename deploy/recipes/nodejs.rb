@@ -32,8 +32,8 @@ node[:deploy].each do |application, deploy|
     deploy_data deploy
     app application
   end
-  
-  
+
+
   %w{webpack pm2}.each do |pkg|
     execute "npm install #{pkg} on gloabl" do
       cwd ::File.join(deploy[:deploy_to], 'current')
@@ -51,7 +51,7 @@ node[:deploy].each do |application, deploy|
   end
 
 
-  # for pm2 
+  # for pm2
   template "#{deploy[:deploy_to]}/shared/app.json" do
     source 'pm2_app.json.erb'
     owner deploy[:user]
@@ -76,6 +76,12 @@ node[:deploy].each do |application, deploy|
     environment_variables deploy[:environment_variables]
   end
 
+  execute 'Get Short Git Version Hash Into REVISION ' do
+    user deploy[:user]
+    group deploy[:group]
+    path ::File.join(deploy[:deploy_to], "current")
+    command "git rev-parse --short HEAD > REVISION"
+  end
 
   ruby_block "restart node.js application #{application}" do
     block do
