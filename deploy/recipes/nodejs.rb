@@ -79,7 +79,7 @@ node[:deploy].each do |application, deploy|
   execute 'Get Short Git Version Hash Into REVISION ' do
     user deploy[:user]
     group deploy[:group]
-    path ::File.join(deploy[:deploy_to], "current")
+    cwd ::File.join(deploy[:deploy_to], "current")
     command "git rev-parse --short HEAD > REVISION"
   end
 
