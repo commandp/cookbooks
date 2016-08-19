@@ -14,7 +14,7 @@ execute "install libwebp-dev devscripts" do
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/ImageMagick-#{node['imagemagick']['version']}.tar.xz" do
-  source "#{node['imagemagick']['source']}ImageMagick-#{node['imagemagick']['version']}.tar.xz"
+  source node['imagemagick']['source_url']
   action :create
 end
 
