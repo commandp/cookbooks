@@ -20,4 +20,4 @@ cookbook 'nodejs', '~> 2.4.2'
 
 cookbook 'collectd', git: 'git://github.com/SammyLin/chef-collectd.git'
 cookbook 'op-collectd', path: 'op-collectd'
-cookbook 'zabbix-agent', github: 'commandp/zabbix-agent'
+cookbook 'zabbix-agent', git: 'git://github.com/commandp/zabbix-agent.git'
