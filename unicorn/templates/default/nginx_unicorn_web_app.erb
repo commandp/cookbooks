@@ -201,11 +201,11 @@ server {
     set $mobile_rewrite "${mobile_rewrite}store";
   }
 
-  if ($uri = /zh-TW) {
+  if ($uri ~* /(zh-TW|zh-CN|jp|en)$) {
     set $mobile_rewrite "${mobile_rewrite}home";
   }
 
-  if ($uri = /zh-TW/) {
+  if ($uri ~* /(zh-TW|zh-CN|jp|en)/$) {
     set $mobile_rewrite "${mobile_rewrite}home";
   }
 
