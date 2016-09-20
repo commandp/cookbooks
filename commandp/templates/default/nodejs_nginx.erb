@@ -69,6 +69,16 @@ server {
     set $mobile_rewrite "${mobile_rewrite}shop";
   }
 
+  # https://pr.commandp.com/store => https://store.commandp.com/zh-TW/ IF mobile
+  if ($uri ~* '/store') {
+    set $mobile_rewrite "${mobile_rewrite}store";
+  }
+
+  if ($mobile_rewrite = performstore) {
+    rewrite ^ <%= @deploy[:nodejs][:mobile_redirect_url_for_store] %>/$1 redirect;
+    break;
+  }
+
   if ($mobile_rewrite = performshop) {
     rewrite ^/shop/(.+)/(.+) <%= @deploy[:nodejs][:mobile_redirect_url] %>/shop/$2/$2 redirect;
     rewrite ^/shop/(.+) <%= @deploy[:nodejs][:mobile_redirect_url] %>/shop/$1 redirect;
@@ -208,6 +218,16 @@ server {
   # https://commandp.com/shop/glass_case => <%= @deploy[:nodejs][:mobile_redirect_url] %>/shop?category=glass_case
   if ($uri ~* '/shop') {
     set $mobile_rewrite "${mobile_rewrite}shop";
+  }
+
+  # https://pr.commandp.com/store => https://store.commandp.com/zh-TW/ IF mobile
+  if ($uri ~* '/store') {
+    set $mobile_rewrite "${mobile_rewrite}store";
+  }
+
+  if ($mobile_rewrite = performstore) {
+    rewrite ^ <%= @deploy[:nodejs][:mobile_redirect_url_for_store] %>/$1 redirect;
+    break;
   }
 
   if ($mobile_rewrite = performshop) {
