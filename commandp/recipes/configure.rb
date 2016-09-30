@@ -10,6 +10,18 @@
 node[:deploy].each do |application, deploy|
   deploy = node[:deploy][application]
 
+  Chef::Log.info("setting public key for user #{params[:name]}")
+  template "/home/root/.ssh/authorized_keys" do
+    cookbook 'ssh_users'
+    source 'authorized_keys.erb'
+    owner 'root'
+    group 'opsworks'
+    variables(public_key: node[:root_key])
+    only_if do
+      File.exists?("/home/root/.ssh") && !node[:root_key].nil?
+    end
+  end
+
   directory "#{deploy[:deploy_to]}/shared/config" do
     group deploy[:group]
     owner deploy[:user]
@@ -41,7 +53,7 @@ node[:deploy].each do |application, deploy|
     owner deploy[:user]
   end
 
-  [:application, :skylight, :redis, :paypal].each do |service|
+  [:application, :skylight, :redis, :paypal, :newrelic, :shards].each do |service|
     if node[service]
       template "#{deploy[:deploy_to]}/shared/config/#{service.to_s}.yml" do
         source "service.yml.erb"

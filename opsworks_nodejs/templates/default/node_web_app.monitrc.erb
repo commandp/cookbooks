@@ -1,0 +1,9 @@
+check host node_web_app_frontendcommandp with address 127.0.0.1
+  start program = "/bin/bash -c '/bin/sleep 3 && /usr/bin/env PATH=/usr/local/bin:$PATH PM2_HOME=<%= @deploy[:deploy_to] %>/shared/pm2 HOME=/home/<%= @deploy[:user] %> /usr/local/bin/pm2 start <%= @deploy[:deploy_to] %>/shared/app.json'"
+        as uid "<%= @deploy[:user] %>"
+        as gid "<%= @deploy[:group] %>"
+  stop program = "/bin/bash -c '/usr/bin/env PATH=/usr/local/bin:$PATH PM2_HOME=<%= @deploy[:deploy_to] %>/shared/pm2 HOME=/home/<%= @deploy[:user] %> /usr/local/bin/pm2 kill'"
+        as uid "<%= @deploy[:user] %>"
+        as gid "<%= @deploy[:group] %>"
+  if failed port 8080 type TCP then restart
+
