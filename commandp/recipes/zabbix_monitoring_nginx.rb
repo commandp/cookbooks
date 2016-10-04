@@ -29,7 +29,7 @@ cookbook_file '/etc/zabbix/bin/nginx-check.sh' do
 end
 
 # Put nginx.conf to `/etc/zabbix/zabbix_agentd.conf.d`.
-cookbook_file '/etc/zabbix/zabbix_agentd.d/nginx.conf' do
+cookbook_file '/etc/zabbix/zabbix_agentd.conf.d/nginx.conf' do
   source 'zabbix/zabbix_agentd_nginx.conf'
   mode 0644
 end
