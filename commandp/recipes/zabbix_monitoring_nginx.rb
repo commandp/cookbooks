@@ -36,6 +36,6 @@ end
 
 # restart service.
 service "zabbix-agent" do
-  supports :restart => true, :reload => true, :status => true
+  supports :restart => true, :status => true
   action :reload
 end
