@@ -13,7 +13,7 @@
 # ===========================================================
 
 # load commandp::zabbix-agent recipe."
-include_recipe 'commandp::zabbix-agent'
+include_recipe 'commandp::zabbix_agent'
 
 # Create directory for 'nginx-check.sh'.
 directory '/etc/zabbix/bin' do
