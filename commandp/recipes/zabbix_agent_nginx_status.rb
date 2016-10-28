@@ -10,6 +10,9 @@
 #
 # =========================================================== 
 
+# load commandp::zabbix-agent recipe."
+include_recipe 'commandp::zabbix_agent'
+
 # Install necessary package.
 package 'Install wget' do
   package_name 'wget'
