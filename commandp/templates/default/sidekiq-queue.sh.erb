@@ -1,0 +1,45 @@
+#!/bin/bash
+# ============================================================
+#  Author: Jonny Lai / jonny.lai (at) commandp.com
+#  Filename: sidekiq-queue.sh
+#  Modified: 2016-12-01 19:01
+#  Description: Get Sidekiq queues with redis-cli.
+#
+#   1. Login the redis server.
+#
+#    $ redis-cli -h REDIS_SERVER_ADDRESS
+#
+#   2. Get queue items.
+#
+#    REDIS_SERVER_ADDRESS:6379> smembers queues
+#    1) "default"
+#
+#   3. Count the specificof queue item.
+#
+#    ./sidekiq-queue.sh REDIS_SERVER_ADDRESS QUEUE_ITEM
+#
+#  Reference:
+#
+#   1. ruby on rails - Are there console commands to look at whats in the queue and to clear the queue in Sidekiq?
+#    - Stack Overflow http://stackoverflow.com/a/12684970/686105
+#   2.  Print number of keys in Redis - Stack Overflow
+#    - http://stackoverflow.com/a/11474031/686105
+#
+# ===========================================================
+
+# Get redis host from Custom JSON.
+REDIS_HOST="<%= @redis_host %>"
+
+# Get queue item from zabbix template.
+QUEUE_ITEM="$1"
+
+# Select the Sidekiq queue.
+RESULT=$(redis-cli -h $REDIS_HOST lrange queue:$QUEUE_ITEM 0 -1)
+
+# If the query result is empty, return the '0'.
+if [[ "$RESULT" == "" ]]; then
+  echo "0"
+else
+  echo $RESULT
+fi
+
