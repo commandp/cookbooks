@@ -40,6 +40,6 @@ RESULT=$(redis-cli -h $REDIS_HOST lrange queue:$QUEUE_ITEM 0 -1)
 if [[ "$RESULT" == "" ]]; then
   echo "0"
 else
-  echo $RESULT
+  echo $RESULT | wc -l
 fi
 
