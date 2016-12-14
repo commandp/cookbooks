@@ -5,11 +5,6 @@
 #  Filename: zabbix_agent_sidekiq_queue.rb
 #  Modified: 2016-12-02 19:89
 #  Recipe: commandp::zabbix_agent_sidekiq_queue
-#  Reference:
-#
-#   1.  IT 內部工作 #1374: 使用 Zabbix 監控 Sidekiq 的 Enqueued 數量 | commandp Inc.
-#    - https://ticket.commandp.com/issues/1374
-#
 # ===========================================================
 
 # load commandp::zabbix-agent recipe."
